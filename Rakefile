@@ -17,10 +17,12 @@ Jeweler::Tasks.new do |gem|
   gem.name = "scaffold_pico"
   gem.homepage = "http://github.com/gudata/scaffold_pico"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Scaffold should be simple}
+  gem.description = %Q{Scaffolding}
   gem.email = "i.bardarov@gmail.com"
   gem.authors = ["gudata"]
+  gem.executables = ['scaffold_pico.rb']
+  gem.files = Dir.glob('lib/**/*.rb')
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
@@ -30,12 +32,6 @@ Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
   test.pattern = 'test/**/test_*.rb'
   test.verbose = true
-end
-
-desc "Code coverage detail"
-task :simplecov do
-  ENV['COVERAGE'] = "true"
-  Rake::Task['test'].execute
 end
 
 task :default => :test
