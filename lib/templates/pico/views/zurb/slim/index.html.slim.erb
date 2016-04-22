@@ -1,0 +1,39 @@
+h1 = t('scaffold.index.title', model: <%= @resource_class_name %>.model_name.human(count: 2).mb_chars.downcase)
+
+= link_to t('scaffold.actions.new', model: <%= @resource_class_name %>.model_name.human.mb_chars.downcase), <%= @new_resource_path %>, class: 'button small secondary'
+
+.row
+  .small-12.medium-10.columns
+    table
+      thead
+        tr
+        <% @fields.select {|k,v| @index_fields.include?(k) }.keys.each do |field_name| %>
+          th = <%= @resource_class_name -%>.human_attribute_name(:<%= field_name -%>)
+        <% end %>
+          th colspan=3 = t('scaffold.index.actions')
+
+      tbody
+        - @<%= @collection_name %>.each do |<%= @resource_name %>|
+          tr
+          <% @fields.select {|k,v| @index_fields.include?(k) }.keys.each do |field_name| %>
+            td = <%= @resource_name %>.<%= field_name -%>
+          <% end %>
+            td = link_to t('scaffold.index.show'), <%= @resource_path %>
+            td = link_to t('scaffold.index.edit'), <%= @edit_resource_path %>
+            td = link_to t('scaffold.index.destroy'), <%= @resource_path %>, data: {:confirm => t('scaffold.confirm')}, :method => :delete
+    = paginate @<%= @collection_name %>
+
+  .small-12.medium-2.columns
+    .callout.clearfix
+      h5 = t('scaffold.index.search.header')
+
+      = simple_form_for <%= "@#{@collection_name}_search" %>, as: :<%= @collection_name %>_search, url: <%= @collection_path %>, method: :get  do |form|
+        = form.error_notification
+        .form-inputs
+          <% @fields.select {|k,v| @search_fields.include?(k) }.keys.each do |field_name| %>
+          = form.input :<%= field_name -%>
+          <% end %>
+
+        .form-actions
+          = form.submit t('scaffold.index.search.button'), class: 'button'
+          = link_to t('scaffold.index.search.reset'),  url_for(<%= @collection_path %>), class: 'button small secondary'

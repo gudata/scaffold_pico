@@ -1,0 +1,72 @@
+class <%= @controller_class_name %> < <%= @base_controller %>
+
+  def index
+    <%= "@#{@collection_name}_search = #{@search_modulized_resource_class_name}.new(search_#{@collection_name}_params)" %>
+    <%=
+      active_record = ["@#{@collection_name}_search"]
+      active_record << [ "results" ]
+      active_record << [ "includes(#{@includes.join(', ')})" ] if @includes and !@includes.empty?
+      active_record << [ "joins(#{@joins.join(', ')})" ] if @joins and !@joins.empty?
+      active_record << [ "page(params[:page])", "per(params[:per])" ]
+      active_record << [ "all" ]
+      "@#{@collection_name} = #{active_record.join('.')}"
+    %>
+  end
+
+  def show
+    @<%= @resource_name %> = <%= @modulized_resource_class_name %>.find(params[:id])
+  end
+
+  def new
+    @<%= @resource_name %> = <%= @modulized_resource_class_name %>.new
+  end
+
+  def edit
+    @<%= @resource_name %> = <%= @modulized_resource_class_name %>.find(params[:id])
+  end
+
+  def create
+    @<%= @resource_name %> = <%= @modulized_resource_class_name %>.new(<%= @collection_name %>_params)
+
+    respond_to do |format|
+      if @<%= @resource_name %>.save
+        <%= "message = t('create', scope: [:scaffold, :notices, :success], model: #{@resource_class_name}.model_name.human.mb_chars.downcase)" %>
+        format.html { redirect_to <%= @collection_path %>, notice: message }
+      else
+        format.html { render :new }
+      end
+    end
+  end
+
+  def update
+    @<%= @resource_name %> = <%= @modulized_resource_class_name %>.find(params[:id])
+    respond_to do |format|
+      if @<%= @resource_name %>.update(<%= @collection_name %>_params)
+        <%= "message = t('update', scope: [:scaffold, :notices, :success], model: #{@resource_class_name}.model_name.human.mb_chars.downcase)" %>
+        format.html { redirect_to <%= @collection_path %>, notice: message }
+      else
+        format.html { render :edit }
+      end
+    end
+  end
+
+  def destroy
+    @<%= @resource_name %> = <%= @modulized_resource_class_name %>.find(params[:id])
+    @<%= @resource_name %>.destroy
+    respond_to do |format|
+      <%= "message = t('destroy', scope: [:scaffold, :notices, :success], model: #{@resource_class_name}.model_name.human.mb_chars.downcase)" %>
+      format.html { redirect_to <%= @collection_path %>, notice: message }
+    end
+  end
+
+  private
+  def <%= @collection_name %>_params
+    params[:<%= @resource_name %>].permit(<%= @fields.keys.collect{|field| ":#{field}"}.join(', ') %>)
+  end
+
+  def search_<%= @collection_name %>_params
+    return {} if params[:<%= @collection_name %>_search].blank?
+    params[:<%= @collection_name %>_search].permit(<%= @fields.keys.collect{|field| ":#{field}"}.join(', ') %>)
+  end
+
+end

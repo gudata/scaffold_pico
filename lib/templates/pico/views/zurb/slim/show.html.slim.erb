@@ -1,0 +1,16 @@
+h1 = t('scaffold.show.title', model: <%= @resource_class_name %>.model_name.human(count: 1).mb_chars.downcase)
+
+.callout.clearfix
+  .float-left
+    = link_to t('scaffold.show.actions.index', model: <%= @resource_class_name %>.model_name.human(count: 2).mb_chars.downcase), <%= @collection_path %>, class: 'button small primary'
+  .float-right
+    = link_to t('scaffold.actions.edit', model: <%= @resource_class_name %>.model_name.human(count: 1).mb_chars.downcase), <%= @instance_edit_resource_path %>, class: 'button small warning'
+    = link_to t('scaffold.actions.new', model: <%= @resource_class_name %>.model_name.human(count: 1).mb_chars.downcase), <%= @new_resource_path %>, class: 'button small secondary'
+
+table
+  tbody
+    <% @fields.keys.each do |field_name| %>
+    tr
+      td = <%= @resource_class_name -%>.human_attribute_name(:<%= field_name -%>)
+      td = @<%= @resource_name %>.<%= field_name -%>
+    <% end %>

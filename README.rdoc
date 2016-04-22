@@ -1,8 +1,20 @@
 = scaffold_pico
 
-ruby -I lib bin/scaffold_pico.rb  -m user -n Admin -i :roles :company -j :roles :company --fields name:string
+ruby -I lib bin/scaffold_pico.rb  --css_framework=zurb --template=slim -m user -n Admin -i :roles :company -j :roles :company --fields name:string
 
-scaffold_pico.rb  -m user -n Admin -i :roles :company -j :roles :company --fields name:string
+scaffold_pico.rb -m Admin::User -n admin/gosho -i :roles :company -j :roles :company --fields name:string
+
+ruby -I ~/scaffold_pico/lib ~/scaffold_pico/bin/scaffold_pico.rb  -m Admin::Assistant -n administation/pencho --fields first_name:string last_name:string
+
+
+ruby -I ~/scaffold_pico/lib ~/scaffold_pico/bin/scaffold_pico.rb  -m Company -n super_admin --fields name:string website:string active:string subscription:string contact_person:string
+
+
+ruby -I ~/scaffold_pico/lib ~/scaffold_pico/bin/scaffold_pico.rb -d --css_framework=materialize \
+  -m Vector -n manage -b AdminController  \
+  --fields name: featured:boolean aspect_ratio: portrait:boolean landscape:boolean imported:boolean trending:boolean width:integer height:integer transperant:boolean bw:boolean license:belongs_to group_id:integer tool:belongs_to user_id: category_id: category_display_order:integer group_display_order:integer svg:file ai:file png:file emf:file wmf:file  \
+  --index-fields id name imported featured \
+  --search-fields name aspect_ratio landscape portrait imported featured trending width height transperant bw license_id group_id tool_id user_id category_id
 
 
 == I18n

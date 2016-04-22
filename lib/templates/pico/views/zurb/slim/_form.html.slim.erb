@@ -1,0 +1,16 @@
+= form.error_notification
+.form-inputs
+<%   @fields.each_pair do |field_name, kind| -%>
+<%   if kind == 'file' -%>
+    = form.input :<%= field_name -%>, as: :file
+<%   elsif kind == 'belongs_to' -%>
+    = form.association :<%= field_name %>
+<%   elsif kind == 'text' -%>
+    = form.input :<%= field_name -%>, as: :text
+<%   else -%>
+    = form.input :<%= field_name %>
+<%   end -%>
+<%   end -%>
+
+.form-actions
+  = form.submit class: 'waves-effect waves btn-large'

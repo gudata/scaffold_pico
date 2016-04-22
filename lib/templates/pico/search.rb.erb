@@ -1,0 +1,20 @@
+class <%= @search_modulized_resource_class_name %>
+  include ActiveModel::Model
+
+  attr_accessor(
+    <% @search_fields.each do |field_name| %>
+    :<%= field_name %>,
+    <% end %>
+  )
+
+
+  def results
+    <%= @resource_name %> = <%= @modulized_resource_class_name %>
+    <% @search_fields.each do |field_name| %>
+    <%= @resource_name %> = <%= @resource_name %>.where(<%= field_name %>: <%= field_name %>) if self.<%= field_name %>.present?
+    <% end %>
+
+    <%= @resource_name %>
+  end
+
+end

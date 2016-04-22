@@ -1,0 +1,14 @@
+h1 = t('scaffold.new.title', model: <%= @resource_class_name %>.model_name.human(count: 1).mb_chars.downcase)
+
+.section
+  .left
+    = link_to <%= @collection_path %>, class: 'waves-effect waves-light btn' do
+      i.material-icons.right view_list
+      = t('scaffold.show.actions.index', model: <%= @resource_class_name %>.model_name.human(count: 2).mb_chars.downcase)
+
+.clearfix
+
+.card
+  .card-content
+    = simple_form_for <%= @instance_resource_path %> do |form|
+      = render 'form', form: form
