@@ -22,7 +22,7 @@ Jeweler::Tasks.new do |gem|
   gem.email = "i.bardarov@gmail.com"
   gem.authors = ["gudata"]
   gem.executables = ['scaffold_pico.rb']
-  gem.files = Dir.glob('lib/**/*.rb')
+  gem.files = Dir.glob('lib/**/*.rb') + Dir.glob('lib/**/*.erb')
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
