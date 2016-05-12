@@ -1,4 +1,4 @@
-require 'scaffold_pico'
+require_relative '../scaffold_pico'
 require 'choice'
 
 module Scaffold
