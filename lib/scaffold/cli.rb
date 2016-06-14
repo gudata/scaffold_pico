@@ -88,6 +88,7 @@ module Scaffold
         option :services_folder do
           long '--services_folder=services'
           validate  /\A(\w+(?:\/\w+)*)\z/
+          default 'services'
           desc 'Where to put the search model. Example: --services=actions'
         end
 
