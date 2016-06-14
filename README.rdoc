@@ -2,20 +2,26 @@
 
 ruby -I lib bin/scaffold_pico.rb  --css_framework=zurb --template=slim -m user -n Admin -i :roles :company -j :roles :company --fields name:string
 
-scaffold_pico.rb -m Admin::User -n admin/gosho -i :roles :company -j :roles :company --fields name:string
 
-ruby -I ~/scaffold_pico/lib ~/scaffold_pico/bin/scaffold_pico.rb  -m Admin::Assistant -n administation/pencho --fields first_name:string last_name:string
+Used in production:
+scaffold_pico.rb -m Company -n super_admin --fields name:string website:string active:string subscription:string contact_person:string
 
+scaffold_pico.rb -m CompanyOwnerships -b AuthenticatedController -n admin \
+  --includes :user :company \
+  --css_framework=materialize \
+  --fields user_id: company_id: admin:boolean approved:boolean \
+  --index-fields user_id admin approved \
+  --search-fields admin approved
 
-ruby -I ~/scaffold_pico/lib ~/scaffold_pico/bin/scaffold_pico.rb  -m Company -n super_admin --fields name:string website:string active:string subscription:string contact_person:string
+scaffold_pico.rb -m Admin::Assistant -n administation/pencho --fields first_name:string last_name:string
 
-
-ruby -I ~/scaffold_pico/lib ~/scaffold_pico/bin/scaffold_pico.rb -d --css_framework=materialize \
+Example with options:
+scaffold_pico.rb -d --css_framework=materialize \
   -m Vector -n manage -b AdminController  \
   --fields name: featured:boolean aspect_ratio: portrait:boolean landscape:boolean imported:boolean trending:boolean width:integer height:integer transperant:boolean bw:boolean license:belongs_to group_id:integer tool:belongs_to user_id: category_id: category_display_order:integer group_display_order:integer svg:file ai:file png:file emf:file wmf:file  \
   --index-fields id name imported featured \
   --search-fields name aspect_ratio landscape portrait imported featured trending width height transperant bw license_id group_id tool_id user_id category_id
-
+  --services_folder=services
 
 == I18n
 
@@ -37,3 +43,24 @@ en.yml:
 Copyright (c) 2016 gudata. See LICENSE.txt for
 further details.
 
+
+
+2fix
+
+
+scaffold_pico.rb -m Admin::CompanyOwnerships -b AuthenticatedController -n admin \
+  --includes :user, :company \ <---
+  --css_framework=materialize \
+  --fields user_id: company_id: admin:boolean approved:boolean \
+  --index-fields user_id admin approved \
+  --search-fields admin approved <-- missing searchfields
+
+Started POST "/super_admin/company_ownerships" for 127.0.0.1 at 2016-05-18 21:36:21 +0300
+Processing by SuperAdmin::CompanyOwnershipsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"OBASAkBg11kfNd0omZ6Jd4AApmCIU1Q2f9uCq/665cwf/qJva74jkS620ELii96stkPcYfLfzes0yu0i/+nKAQ==", "company_ownership"=>{"user_id"=>"1", "company_id"=>"1", "admin"=>"0", "approved"=>"0"}, "commit"=>"Създай Членство"}
+  User Load (0.4ms)  SELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?  [["id", 4], ["LIMIT", 1]]
+Unpermitted parameters: user_id, company_id <---
+
+
+services/action folder param
+auction = auction.where(name: name) if self.name.present?

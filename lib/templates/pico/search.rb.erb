@@ -10,8 +10,12 @@ class <%= @search_modulized_resource_class_name %>
 
   def results
     <%= @resource_name %> = <%= @modulized_resource_class_name %>
-    <% @search_fields.each do |field_name| %>
-    <%= @resource_name %> = <%= @resource_name %>.where(<%= field_name %>: <%= field_name %>) if self.<%= field_name %>.present?
+    <% @fields.select {|k,v| @search_fields.include?(k) }.each_pair do |field_name, field_type| %>
+    <%- if field_type == "string" %>
+      <%= @resource_name %> = <%= @resource_name %>.where("<%= field_name %> LIKE ?", "%#{<%= field_name %>}%") if self.<%= field_name %>.present?
+    <%- else  %>
+      <%= @resource_name %> = <%= @resource_name %>.where(<%= field_name %>: <%= field_name %>) if self.<%= field_name %>.present?
+    <%- end  %>
     <% end %>
 
     <%= @resource_name %>

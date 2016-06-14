@@ -20,7 +20,7 @@ module Scaffold
     end
 
     def create_searches_path
-      searches_path = File.join(Dir.pwd, 'app', 'services', 'search', @params.namespaces_array)
+      searches_path = File.join(Dir.pwd, 'app', @params.services_folder, 'search', @params.namespaces_array)
       FileUtils.mkpath(searches_path)
       searches_path
     end

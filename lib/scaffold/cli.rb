@@ -85,6 +85,13 @@ module Scaffold
           desc 'zurb'
         end
 
+        option :services_folder do
+          long '--services_folder=services'
+          validate  /\A(\w+(?:\/\w+)*)\z/
+          desc 'Where to put the search model. Example: --services=actions'
+        end
+
+
         separator ''
         separator 'Common options: '
 

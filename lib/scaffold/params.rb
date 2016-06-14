@@ -1,6 +1,6 @@
 module Scaffold
   class Params
-    attr_reader :resource_name, :namespaces_array, :controller_file_name, :template, :css_framework, :views_folder_name, :route_resource_name
+    attr_reader :resource_name, :namespaces_array, :controller_file_name, :template, :css_framework, :views_folder_name, :route_resource_name, :services_folder
 
     def expand_default_types hash
       hash.each_pair do |key, value|
@@ -35,12 +35,11 @@ module Scaffold
       @namespaces_array = parse_namespaces_array(@namespace)  # [:admin, ...?... ]
 
       # controller
-      @controller_namespaces = @namespace.camelize
-
       if @namespaces_array.blank?
         @controller_class_name = "#{@model_name.pluralize}Controller"
         @search_modulized_resource_class_name = "Search::#{@resource_class_name}Search"
       else
+        @controller_namespaces = @namespace.camelize
         @controller_class_name = "#{@controller_namespaces}::#{@model_name.pluralize}Controller"
         @search_modulized_resource_class_name =  "Search::#{@controller_namespaces}::#{@resource_class_name.pluralize}Search"
       end
@@ -63,6 +62,7 @@ module Scaffold
 
       @collection_path = @path_segments.dup << @collection_name.to_sym
 
+      @services_folder = choice[:services_folder]
       debug_info if choice[:debug]
     end
 
@@ -90,7 +90,7 @@ module Scaffold
     end
 
     def parse_namespaces_array namespace
-      namespace.split('/').collect{|name| name.underscore}
+      (namespace || "").split('/').collect{|name| name.underscore}
     end
 
     def hasherize_fields fields_array
