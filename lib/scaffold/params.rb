@@ -35,32 +35,49 @@ module Scaffold
       @namespaces_array = parse_namespaces_array(@namespace)  # [:admin, ...?... ]
 
       # controller
+      @resource_name = @model_name.tableize.singularize # user for use in @user or filenames
+      @collection_name = @model_name.tableize # users for use in @users
+
       if @namespaces_array.blank?
         @controller_class_name = "#{@model_name.pluralize}Controller"
-        @search_modulized_resource_class_name = "Search::#{@resource_class_name}Search"
+        @search_modulized_resource_class_name = "Search::#{@resource_class_name.pluralize}Search"
+
+        # paths without namespace
+        @new_resource_path = "[:new, :#{@resource_name}]"
+
+        @resource_path = "[#{@resource_name}]"
+        @edit_resource_path = "[:edit, #{@resource_name}]"
+
+        @instance_resource_path = "[@#{@resource_name}]"
+        @instance_edit_resource_path = "[:edit, @#{@resource_name}]"
+
+        @collection_path = [@collection_name.to_sym]
+
       else
         @controller_namespaces = @namespace.camelize
         @controller_class_name = "#{@controller_namespaces}::#{@model_name.pluralize}Controller"
         @search_modulized_resource_class_name =  "Search::#{@controller_namespaces}::#{@resource_class_name.pluralize}Search"
+
+        # paths with namespace
+        @path_segments = @namespaces_array.map{|segment| segment.to_sym }
+        @new_resource_path = "[:new, #{@path_segments.map{|item| ":#{item}"}.join(", ")}, :#{@resource_name}]"
+
+        @resource_path = "[#{@path_segments.map{|item| ":#{item}"}.join(", ")}, #{@resource_name}]"
+        @edit_resource_path = "[:edit, #{@path_segments.map{|item| ":#{item}"}.join(", ")}, #{@resource_name}]"
+
+        @instance_resource_path = "[#{@path_segments.map{|item| ":#{item}"}.join(", ")}, @#{@resource_name}]"
+        @instance_edit_resource_path = "[:edit, #{@path_segments.map{|item| ":#{item}"}.join(", ")}, @#{@resource_name}]"
+
+        @collection_path = @path_segments.dup << @collection_name.to_sym
+
       end
       @controller_file_name = "#{@resource_class_name.tableize}_controller.rb"
 
-      @resource_name = @model_name.tableize.singularize # user for use in @user or filenames
-      @collection_name = @model_name.tableize # users for use in @users
 
       # view
       @views_folder_name = @model_name.tableize # users
 
-      @path_segments = @namespaces_array.map{|segment| segment.to_sym }
-      @new_resource_path = "[:new, #{@path_segments.map{|item| ":#{item}"}.join(", ")}, :#{@resource_name}]"
 
-      @resource_path = "[#{@path_segments.map{|item| ":#{item}"}.join(", ")}, #{@resource_name}]"
-      @edit_resource_path = "[:edit, #{@path_segments.map{|item| ":#{item}"}.join(", ")}, #{@resource_name}]"
-
-      @instance_resource_path = "[#{@path_segments.map{|item| ":#{item}"}.join(", ")}, @#{@resource_name}]"
-      @instance_edit_resource_path = "[:edit, #{@path_segments.map{|item| ":#{item}"}.join(", ")}, @#{@resource_name}]"
-
-      @collection_path = @path_segments.dup << @collection_name.to_sym
 
       @services_folder = choice[:services_folder]
       debug_info if choice[:debug]
