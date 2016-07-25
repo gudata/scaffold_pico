@@ -16,6 +16,11 @@ module Scaffold
           desc 'print some debug info'
         end
 
+        option :fabrication do
+          long '--fabrication'
+          desc 'Generate fabrication fabricator https://github.com/paulelliott/fabrication'
+        end
+
         option :namespace do
           short '-n'
           long '--namespace=namespace1/namespace2'
@@ -52,7 +57,7 @@ module Scaffold
         option :fields do
           long '-f'
           long '--fields *FIELDS'
-          desc 'title:string body:text published:boolean amount:decimal tracking_id:integer:uniq '
+          desc 'title:string body:text published:boolean amount:decimal attachment:file tracking_id:integer:uniq '
         end
 
         option :index_fields do

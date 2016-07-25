@@ -2,7 +2,7 @@ module Scaffold
   class ModelsGenerator < Scaffold::BaseGenerator
     def generate
       searches_path = create_searches_path
-      puts "Don't forget to add 'app/services' in your autoload_paths (application.rb)"
+      puts "Don't forget to add '#{@params.services_folder}' in your autoload_paths (application.rb)"
       create_search_object searches_path
     end
 

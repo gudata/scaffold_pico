@@ -1,0 +1,7 @@
+Fabricator(:company) do
+  name { Faker::Company.name }
+  website { Faker::Internet.url  }
+  active true
+  subscription '200/month'
+  contact_person 'James Hedrik, +333333333, St. Ave street #9'
+end

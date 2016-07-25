@@ -1,6 +1,11 @@
 = scaffold_pico
 
-ruby -I lib bin/scaffold_pico.rb  --css_framework=zurb --template=slim -m user -n Admin -i :roles :company -j :roles :company --fields name:string
+
+ruby -I lib bin/scaffold_pico.rb  \
+--css_framework=materialize --template=slim \
+--fabrication \
+-m user -n Admin -i :roles :company -j :roles :company \
+--fields name:string
 
 
 Used in production:
@@ -51,9 +56,17 @@ further details.
 scaffold_pico.rb -m Admin::CompanyOwnerships -b AuthenticatedController -n admin \
   --includes :user, :company \ <---
   --css_framework=materialize \
-  --fields user_id: company_id: admin:boolean approved:boolean \
+  --fields user_id: company_id: admin:boolean approved:boolean \ <---belongsto, file fields
   --index-fields user_id admin approved \
   --search-fields admin approved <-- missing searchfields
+
+scaffold_pico.rb -m Auctions::AuctionItem -b Manage::BaseController -n manage \
+  --includes :user :page :auction \
+  --css_framework=zurb --services_folder=actions\
+  --fields id: auction:belongs_to user:belongs_to page:belongs_to state: message:text money_wanted_by_user: money_approved_for_user: tickets_count: ended_at: claimed_at: document_1:file document_2:file document_3:file document_4:file document_5:file created_at:  \
+  --index-fields auction user page state money_wanted_by_user \
+  --search-fields auction_id user_id
+
 
 Started POST "/super_admin/company_ownerships" for 127.0.0.1 at 2016-05-18 21:36:21 +0300
 Processing by SuperAdmin::CompanyOwnershipsController#create as HTML
