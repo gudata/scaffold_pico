@@ -1,7 +1,15 @@
+<% if @modules.empty? %>
 Fabricator(:company) do
-  name { Faker::Company.name }
-  website { Faker::Internet.url  }
-  active true
-  subscription '200/month'
-  contact_person 'James Hedrik, +333333333, St. Ave street #9'
+<% else %>
+Fabricator(:company, class_name: '<%= @modulized_resource_class_name -%>') do
+<% end -%>
+<%   @fields.each_pair do |field_name, kind| -%>
+<%   if kind == 'belongs_to' -%>
+  <%= field_name %>
+<%   elsif kind == 'text' -%>
+  <%= field_name -%> { Faker::Lorem.sentence }
+<%   elsif kind == 'string' -%>
+  <%= field_name -%> { Faker::Lorem.word }
+<%   end -%>
+<%   end -%>
 end

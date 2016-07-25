@@ -6,7 +6,7 @@ module Scaffold
 
     def initialize
       Choice.options do
-        header 'Synopsys: scaffold_pico.rb  -m user -n Admin -i :roles :company -j :roles :company --fields name:string'
+        header 'Synopsys: scaffold_pico.rb -m User -n Admin --includes :roles :company --joins :roles :company --fields name:string --fabrication'
         separator ''
         header 'Specific options:'
 
@@ -35,7 +35,7 @@ module Scaffold
           desc 'Optional base controller. Example: -b Admin::BaseController'
         end
 
-        option :model do
+        option :model, :required => true do
           short '-m'
           long '--model=model'
           desc 'The model. It could be with modules. Example: ModuleA::ModuleB::SomeClassName'

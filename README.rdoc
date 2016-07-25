@@ -3,9 +3,9 @@
 
 ruby -I lib bin/scaffold_pico.rb  \
 --css_framework=materialize --template=slim \
---fabrication \
--m user -n Admin -i :roles :company -j :roles :company \
+-m User -n Admin
 --fields name:string
+--fabrication \
 
 
 Used in production:

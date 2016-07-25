@@ -1,14 +1,9 @@
 module Scaffold
   class FabricatorGenerator < Scaffold::BaseGenerator
     def generate
-      fabricator_name = @params.resource_class_name.underscore
-      create fabricator_name
-    end
-
-    def create fabricator_name
       fabricators_path = create_fabricators_path
-      source_file_name = "#{fabricator_name}.rb.erb"
-      target_file_name = "#{fabricator_name}_fabricator.rb"
+      source_file_name = "fabrication.rb.erb"
+      target_file_name = "#{@params.resource_name}_fabricator.rb"
       source_file_path = File.join(root, templates, 'fabricators', source_file_name)
       content = File.read(source_file_path)
 

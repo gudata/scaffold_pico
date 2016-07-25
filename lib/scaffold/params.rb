@@ -1,6 +1,14 @@
 module Scaffold
   class Params
-    attr_reader :resource_name, :namespaces_array, :controller_file_name, :template, :css_framework, :views_folder_name, :route_resource_name, :services_folder
+    attr_reader :resource_name, # user for use in @user or filenames
+     :resource_class_name, # CompanyOwnership
+     :namespaces_array,
+     :controller_file_name,
+     :template,
+     :css_framework,
+     :views_folder_name,
+     :route_resource_name,
+     :services_folder
 
     def expand_default_types hash
       hash.each_pair do |key, value|
@@ -29,7 +37,7 @@ module Scaffold
       end
 
       # routes
-      @route_resource_name = @model_name.tableize # resoures :users
+      @route_resource_name = @model_name.tableize # resourse :users
       @namespace = choice[:namespace] # for the controllers
       @base_controller = choice[:base_controller] || 'ApplicationController'
       @namespaces_array = parse_namespaces_array(@namespace)  # [:admin, ...?... ]
