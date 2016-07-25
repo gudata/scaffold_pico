@@ -88,6 +88,7 @@ module Scaffold
       debug_info if choice[:debug]
     end
 
+    private
     def debug_info
       puts "\n"
       puts "Debug:"
