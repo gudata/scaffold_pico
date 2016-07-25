@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.date = "2016-07-25"
   s.description = "Scaffolding"
   s.email = "i.bardarov@gmail.com"
-  s.executables = ["scaffold_pico"]
+  s.executables = ["scaffold_pico.rb"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
