@@ -10,18 +10,15 @@ module Scaffold
      :route_resource_name,
      :services_folder
 
-    def expand_default_types hash
-      hash.each_pair do |key, value|
-        hash[key] = 'string' if value.blank?
-      end
-    end
-
-    def initialize choice
+     def initialize choice
       (@modules, @model_name) = parse_model(choice[:model]) # what came from the params (it contain namespaces)
 
       @fields = expand_default_types(hasherize_fields(choice[:fields]))
       @index_fields = choice[:index_fields].blank? ? @fields.keys : choice[:index_fields]
       @search_fields = choice[:search_fields].blank? ? @fields.keys : choice[:search_fields]
+      # permitted params
+      @fields_permitted = associations_to_ids(@fields)
+      @search_fields_permitted = search_fields_permitted(@search_fields, @fields)
 
       @joins = choice[:joins]
       @includes = choice[:includes]
@@ -125,6 +122,34 @@ module Scaffold
         fields[key] = value
       end
       fields
+    end
+
+
+    def expand_default_types hash
+      hash.each_pair do |key, value|
+        hash[key] = 'string' if value.blank?
+      end
+    end
+
+    # convert company => company_id
+    def associations_to_ids hash
+      to_ids = {}
+      hash.each_pair do |key, type|
+        key_name = ['references', 'belongs_to'].include?(type.downcase) ? "#{key}_id" : key
+        to_ids[key_name] = type
+      end
+      to_ids
+    end
+
+    # convert company => company_id
+    def search_fields_permitted search_fields, fields
+      to_ids = []
+      search_fields.each do |key|
+        next unless fields.keys.include?(key)
+        type = fields[key]
+        to_ids << (['references', 'belongs_to'].include?(type.downcase) ? "#{key}_id" : key)
+      end
+      to_ids
     end
 
   end

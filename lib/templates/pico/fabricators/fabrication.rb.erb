@@ -1,7 +1,7 @@
 <% if @modules.empty? %>
-Fabricator(:company) do
+Fabricator(:<%= @resource_name %>) do
 <% else %>
-Fabricator(:company, class_name: '<%= @modulized_resource_class_name -%>') do
+Fabricator(:<%= @resource_name %>, class_name: '<%= @modulized_resource_class_name -%>') do
 <% end -%>
 <%   @fields.each_pair do |field_name, kind| -%>
 <%   if kind == 'belongs_to' -%>

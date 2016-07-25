@@ -61,12 +61,12 @@ class <%= @controller_class_name %> < <%= @base_controller %>
 
   private
   def <%= @collection_name %>_params
-    params[:<%= @resource_name %>].permit(<%= @fields.keys.collect{|field| ":#{field}"}.join(', ') %>)
+    params[:<%= @resource_name %>].permit(<%= @fields_permitted.keys.map{|field| ":#{field}"}.join(', ') %>)
   end
 
   def search_<%= @collection_name %>_params
     return {} if params[:<%= @collection_name %>_search].blank?
-    params[:<%= @collection_name %>_search].permit(<%= @fields.keys.collect{|field| ":#{field}"}.join(', ') %>)
+    params[:<%= @collection_name %>_search].permit(<%= @search_fields_permitted.collect{|field| ":#{field}"}.join(', ') %>)
   end
 
 end
