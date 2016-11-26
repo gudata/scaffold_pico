@@ -25,7 +25,7 @@ module Scaffold
 
       target_file_path = File.join(model_path, target_file_name)
 
-      IO.write(target_file_path, content)
+      write_with_confirmation(target_file_path, content)
     end
 
     def create_search_object searches_path
@@ -38,7 +38,7 @@ module Scaffold
       content = ::ERB.new(content, nil, '-').result(@params.instance_eval{ binding })
 
       target_file_path = File.join(searches_path, target_file_name)
-      IO.write(target_file_path, content)
+      write_with_confirmation(target_file_path, content)
     end
 
     def create_searches_path

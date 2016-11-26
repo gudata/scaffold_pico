@@ -11,7 +11,7 @@ module Scaffold
       # http://www.stuartellis.eu/articles/erb/
       content = ::ERB.new(content, nil, '-').result(@params.instance_eval{ binding })
       # puts content
-      IO.write(controller_file_path, content)
+      write_with_confirmation(controller_file_path, content)
     end
 
     def create_path file_name

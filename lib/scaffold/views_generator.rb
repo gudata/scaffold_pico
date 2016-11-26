@@ -25,7 +25,7 @@ module Scaffold
       content = ::ERB.new(content, nil, '-').result(@params.instance_eval{ binding })#.gsub(/\s+\n$/, "")
 
       target_file_path = File.join(create_views_path, target_file_name)
-      IO.write(target_file_path, content)
+      write_with_confirmation(target_file_path, content)
     end
 
     def create_views_path

@@ -1,5 +1,8 @@
+require 'readline'
+
 module Scaffold
   class BaseGenerator
+    @@aways_ovewrite = false
 
     def initialize params
       @params = params
@@ -29,5 +32,29 @@ module Scaffold
     def templates
       'lib/templates/pico/'
     end
+
+    def ask(prompt="", newline=false)
+      prompt += "\n" if newline
+      Readline.readline(prompt, true).squeeze(" ").strip
+    end
+
+    def write_with_confirmation(target_file_path, content)
+      unless File.exists?(target_file_path)
+        IO.write(target_file_path, content)
+        return
+      end
+
+      answer = if @@aways_ovewrite
+        puts "#{target_file_path} exists, overwrite? [yaN] y"
+        'y'
+      else
+         ask("#{target_file_path} exists, overwrite? [yaN]").downcase
+      end
+
+      @@aways_ovewrite = true if answer == 'a'
+
+      IO.write(target_file_path, content) if answer == 'y'
+    end
+
   end
 end
