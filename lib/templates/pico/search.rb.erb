@@ -25,7 +25,7 @@ class <%= @search_modulized_resource_class_name %>
   def results
     <%= @resource_name %> = @relation
 
-    <%= @resource_name %> = @relation.order("updated_at")
+    <%= @resource_name %> = @relation.order("updated_at") if <%= @modulized_resource_class_name %>.respond_to?(:updated_at)
 
     if valid?
 <% @fields.select {|k,v| @search_fields.include?(k) }.each_pair do |field_name, field_type| %>
