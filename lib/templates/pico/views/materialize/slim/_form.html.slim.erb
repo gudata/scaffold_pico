@@ -7,10 +7,12 @@
     = form.association :<%= field_name %>
 <%   elsif kind == 'text' -%>
     = form.input :<%= field_name -%>, as: :text
+<%   elsif ['date', 'datetime'].include?(kind)  -%>
+    = form.input :<%= field_name -%>, as: :date, html5: true
 <%   else -%>
     = form.input :<%= field_name %>
 <%   end -%>
 <%   end -%>
 
 .form-actions
-  = form.submit class: 'waves-effect waves btn-large'
+  = form.button :button, 'Reset Password', :class => 'btn btn-large waves-effect waves'

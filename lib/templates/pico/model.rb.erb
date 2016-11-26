@@ -1,0 +1,7 @@
+class <%= @modulized_resource_class_name %> < ApplicationRecord
+<% @fields.select {|k,v| @search_fields.include?(k) }.each_pair do |field_name, field_type| -%>
+<% if field_type == 'belongs_to' -%>
+    belongs_to :<%= field_name %>
+<% end -%>
+<% end -%>
+end

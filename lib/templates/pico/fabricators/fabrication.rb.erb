@@ -1,6 +1,6 @@
-<% if @modules.empty? %>
+<% if @modules.empty? -%>
 Fabricator(:<%= @resource_name %>) do
-<% else %>
+<% else -%>
 Fabricator(:<%= @resource_name %>, class_name: '<%= @modulized_resource_class_name -%>') do
 <% end -%>
 <%   @fields.each_pair do |field_name, kind| -%>

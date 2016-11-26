@@ -2,7 +2,8 @@ module Scaffold
   class Params
     attr_reader :resource_name, # user for use in @user or filenames
      :resource_class_name, # CompanyOwnership
-     :namespaces_array,
+     :namespaces_array, # The namespaces for the controller
+     :modules, # the modules for the model Admin::...
      :controller_file_name,
      :template,
      :css_framework,
@@ -38,6 +39,7 @@ module Scaffold
       @namespace = choice[:namespace] # for the controllers
       @base_controller = choice[:base_controller] || 'ApplicationController'
       @namespaces_array = parse_namespaces_array(@namespace)  # [:admin, ...?... ]
+
 
       # controller
       @resource_name = @model_name.tableize.singularize # user for use in @user or filenames
@@ -145,13 +147,28 @@ module Scaffold
     # convert company => company_id
     def search_fields_permitted search_fields, fields
       to_ids = []
+
+      expanded_fields = expand_association_to_ids fields
+
       search_fields.each do |key|
-        next unless fields.keys.include?(key)
-        type = fields[key]
+        next unless expanded_fields.keys.include?(key)
+        type = expanded_fields[key]
         to_ids << (['references', 'belongs_to'].include?(type.downcase) ? "#{key}_id" : key)
       end
       to_ids
     end
 
+    # if the field is belongs_to
+    # make so that fields contains the `field` and field_id
+    def expand_association_to_ids fields
+      expanded = {}
+      fields.each_pair do |name, type|
+        case type
+        when 'belongs_to'
+          expanded["#{name}_id"] = 'integer'
+        end
+      end
+      fields.merge(expanded)
+    end
   end
 end

@@ -3,18 +3,19 @@ module Scaffold
     def generate
       views_path = create_views_path
       templating_engine = choose_templating_engine
-      print "Creating view:"
+
+      # print "Creating view:"
       %w(index new edit show _form).each do |view_name|
-        print view_name, ' '
+        # print view_name, ' '
         create views_path, view_name, templating_engine, css_framework
       end
-      print "\n"
+      # print "\n"
     end
 
     def create views_path, view_name, templating_engine, css_framework
       source_file_name = "#{view_name}.html.#{templating_engine.extension}.erb"
       target_file_name = "#{view_name}.html.#{templating_engine.extension}"
-      source_file_path = File.join(root, templates, 'views',
+      source_file_path = find_root(templates, 'views',
         css_framework,
         templating_engine.source_folder_name,
         source_file_name)
@@ -38,6 +39,8 @@ module Scaffold
       case @params.template
       when 'slim'
         ::Scaffold::TemplateEngines::Slim.new
+      else
+        raise "I don't have defined templates for #{@params.template}. However you can use [slim,]"
       end
     end
 

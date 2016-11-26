@@ -37,7 +37,7 @@ module Scaffold
 
         option :model, :required => true do
           short '-m'
-          long '--model=model'
+          long '--model=SuperAdmin::User'
           desc 'The model. It could be with modules. Example: ModuleA::ModuleB::SomeClassName'
           validate  /\A(?:::)?([A-Z]\w*(?:::[A-Z]\w*)*)\z/
         end
@@ -79,15 +79,17 @@ module Scaffold
         option :template do
           long '-t'
           long '--template template'
+          validate  /\A(slim)\z/
           default 'slim'
           desc 'slim'
         end
 
         option :css_framework do
           long '-c'
-          long '--css_framework css_framework'
-          default 'zurb'
-          desc 'zurb'
+          long '--css_framework materialize'
+          default 'materialize'
+          validate  /\A(zurb|materialize)\z/
+          desc 'zurb or materialize'
         end
 
         option :services_folder do

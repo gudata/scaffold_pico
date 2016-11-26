@@ -4,7 +4,7 @@ module Scaffold
       fabricators_path = create_fabricators_path
       source_file_name = "fabrication.rb.erb"
       target_file_name = "#{@params.resource_name}_fabricator.rb"
-      source_file_path = File.join(root, templates, 'fabricators', source_file_name)
+      source_file_path = find_root(templates, 'fabricators', source_file_name)
       content = File.read(source_file_path)
 
       # http://www.stuartellis.eu/articles/erb/

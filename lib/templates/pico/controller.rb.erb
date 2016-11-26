@@ -5,7 +5,7 @@ class <%= @controller_class_name %> < <%= @base_controller %>
     <%=
       active_record = ["@#{@collection_name}_search"]
       active_record << [ "results" ]
-      active_record << [ "includes(#{@includes.join(', ')})" ] if @includes and !@includes.empty?
+      active_record << [ "includes(#{@includes.lazy.map(&:strip).map{|v| v.gsub(',', '')}.to_a.join(', ')})" ] if @includes and !@includes.empty?
       active_record << [ "joins(#{@joins.join(', ')})" ] if @joins and !@joins.empty?
       active_record << [ "page(params[:page])", "per(params[:per])" ]
       active_record << [ "all" ]

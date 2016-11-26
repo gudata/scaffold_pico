@@ -1,7 +1,5 @@
 h1 = t('scaffold.index.title', model: <%= @modulized_resource_class_name %>.model_name.human(count: 2).mb_chars.downcase)
 
-= link_to t('scaffold.actions.new', model: <%= @modulized_resource_class_name %>.model_name.human.mb_chars.downcase), <%= @new_resource_path %>, class: 'button small secondary'
-
 .row
   .small-12.medium-10.columns
     table
@@ -24,15 +22,26 @@ h1 = t('scaffold.index.title', model: <%= @modulized_resource_class_name %>.mode
     = paginate @<%= @collection_name %>
 
   .small-12.medium-2.columns
-    .callout.clearfix
+    aside.callout.clearfix.actions
+      = link_to t('scaffold.actions.new', model: <%= @modulized_resource_class_name %>.model_name.human.mb_chars.downcase), <%= @new_resource_path %>, class: 'button small secondary'
+
+    aside.search.callout.clearfix
       h5 = t('scaffold.index.search.header')
 
       = simple_form_for <%= "@#{@collection_name}_search" %>, as: :<%= @collection_name %>_search, url: <%= @collection_path %>, method: :get  do |form|
         = form.error_notification
         .form-inputs
-          <% @fields.select {|k,v| @search_fields.include?(k) }.keys.each do |field_name| %>
+<% @fields.select {|k,v| @search_fields.include?(k) }.each_pair do |field_name, field_type| %>
+<% if field_type == 'belongs_to' -%>
+          = form.input :<%= field_name -%>_id
+<% elsif ['date', 'datetime'].include?(field_type) -%>
+          = form.input :<%= field_name -%>, as: :date, html5: true
+<% elsif field_type == 'boolean' -%>
+          = form.input :<%= field_name -%>, as: :boolean, input_html: {class: 'filled-in'}
+<% else %>
           = form.input :<%= field_name -%>
-          <% end %>
+<% end -%>
+<% end %>
 
         .form-actions
           = form.submit t('scaffold.index.search.button'), class: 'button'

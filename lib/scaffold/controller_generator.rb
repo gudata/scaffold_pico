@@ -4,10 +4,10 @@ module Scaffold
     def generate
       controller_file_path = create_path(@params.controller_file_name)
 
-      puts "Creating #{controller_file_path}"
+      # puts "Creating #{controller_file_path}"
 
-      filename = File.join(root, templates, 'controller.rb.erb')
-      content = File.read(filename)
+      filepath = find_root(templates, 'controller.rb.erb')
+      content = File.read(filepath)
       # http://www.stuartellis.eu/articles/erb/
       content = ::ERB.new(content, nil, '-').result(@params.instance_eval{ binding })
       # puts content
