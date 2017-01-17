@@ -26,6 +26,16 @@ No need to learn DSLs or support 3rd party gems.
       --debug --css_framework=materialize
 
 # Install
+The gem assume you have already in your Gemfile
+
+    gem 'kaminari'
+    gem 'slim-rails'
+    gem 'simple_form'
+
+    # And one of those
+    #
+    # gem 'materialize-sass'
+    # gem 'foundation-rails'
 
 There is no need to have it in your gem file.
 
@@ -104,6 +114,10 @@ Clone the repo in ~/scaffold_pico or whatever, then in some rails project run th
       --fields name:string
 
 # Known Issues
+If you can't start scaffold_pico you might need to update your bundler
+
+    gem update bundler
+
 Help please: For some of the generated models/views there are extra blank links. It would be great if someone knows how to parse the erb and skip the new lines
 
 It would be great if someone wants to make a pull request for erb output
