@@ -74,7 +74,7 @@ Set some default I18n options
         search:
           header: Search
           button: Search
-          reset: New
+          reset: Reset
 
       actions:
         index: List %{model}
