@@ -1,6 +1,12 @@
 module Scaffold
   class ViewsGenerator < Scaffold::BaseGenerator
-    def generate
+    attr :css_framework, false
+    attr :template, false
+
+    def generate template, css_framework
+      @css_framework = css_framework
+      @template = template
+
       views_path = create_views_path
       templating_engine = choose_templating_engine
 
@@ -21,32 +27,29 @@ module Scaffold
         source_file_name)
       content = File.read(source_file_path)
 
-      # http://www.stuartellis.eu/articles/erb/
-      content = ::ERB.new(content, nil, '-').result(@params.instance_eval{ binding })#.gsub(/\s+\n$/, "")
+      content = parse_template(content, {rails: @rails})
+
 
       target_file_path = File.join(create_views_path, target_file_name)
       write_with_confirmation(target_file_path, content)
     end
 
     def create_views_path
-      views_path = File.join(Dir.pwd, 'app', 'views', @params.namespaces_array, @params.views_folder_name)
+      views_path = File.join(Dir.pwd, 'app', 'views', @rails.controller.namespaces_as_path, @rails.view.folder_name)
       FileUtils.mkpath(views_path)
       views_path
     end
 
 
     def choose_templating_engine
-      case @params.template
+      case template
       when 'slim'
         ::Scaffold::TemplateEngines::Slim.new
       else
-        raise "I don't have defined templates for #{@params.template}. However you can use [slim,]"
+        raise "I don't have defined templates for #{template}. However you can use [slim,]"
       end
     end
 
-    def css_framework
-      @params.css_framework
-    end
 
   end
 end

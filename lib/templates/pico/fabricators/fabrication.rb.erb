@@ -1,9 +1,9 @@
-<% if @modules.empty? -%>
-Fabricator(:<%= @resource_name %>) do
+<% if @rails.resource.modules.empty? -%>
+Fabricator(:<%= @rails.resource.name %>) do
 <% else -%>
-Fabricator(:<%= @resource_name %>, class_name: '<%= @modulized_resource_class_name -%>') do
+Fabricator(:<%= @rails.resource.name %>, class_name: '<%= @rails.resource.class_name_with_modules -%>') do
 <% end -%>
-<%   @fields.each_pair do |field_name, kind| -%>
+<%   @rails.resource.fields.each_pair do |field_name, kind| -%>
 <%   if kind == 'belongs_to' -%>
   <%= field_name %>
 <%   elsif kind == 'text' -%>

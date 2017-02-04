@@ -20,7 +20,8 @@ No need to learn DSLs or support 3rd party gems.
 
 # SYNOPSIS
 
-    scaffold_pico.rb -m Admin::Vector -n administration -b AdminController \
+    scaffold_pico.rb \
+      -m Admin::Vector -n administration -b AdminController \
       --fields name: description:text featured:boolean license:belongs_to group_id:integer svg:file \
       --index-fields id name imported featured \
       --search-fields name aspect_ratio license created_at \

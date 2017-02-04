@@ -1,37 +1,37 @@
-h1 = t('scaffold.index.title', model: <%= @modulized_resource_class_name %>.model_name.human(count: 2).mb_chars.downcase)
+h1 = t('scaffold.index.title', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 2).mb_chars.downcase)
 
 .row
   .small-12.medium-10.columns
     table
       thead
         tr
-        <% @fields.select {|k,v| @index_fields.include?(k) }.keys.each do |field_name| %>
-          th = <%= @modulized_resource_class_name -%>.human_attribute_name(:<%= field_name -%>)
+        <% @rails.resource.fields.select {|k,v| @rails.controller.index_fields.include?(k) }.keys.each do |field_name| %>
+          th = <%= @rails.resource.class_name_with_modules -%>.human_attribute_name(:<%= field_name -%>)
         <% end %>
           th colspan=3 = t('scaffold.index.actions')
 
       tbody
-        - @<%= @collection_name %>.each do |<%= @resource_name %>|
+        - @<%= @rails.resource.collection_name %>.each do |<%= @rails.resource.name %>|
           tr
-          <% @fields.select {|k,v| @index_fields.include?(k) }.keys.each do |field_name| %>
-            td = <%= @resource_name %>.<%= field_name -%>
+          <% @rails.resource.fields.select {|k,v| @rails.controller.index_fields.include?(k) }.keys.each do |field_name| %>
+            td = <%= @rails.resource.name %>.<%= field_name -%>
           <% end %>
-            td = link_to t('scaffold.index.show'), <%= @resource_path %>
-            td = link_to t('scaffold.index.edit'), <%= @edit_resource_path %>
-            td = link_to t('scaffold.index.destroy'), <%= @resource_path %>, data: {:confirm => t('scaffold.confirm')}, :method => :delete
-    = paginate @<%= @collection_name %>
+            td = link_to t('scaffold.index.show'), <%= @rails.path.resource %>
+            td = link_to t('scaffold.index.edit'), <%= @rails.path.edit_resource %>
+            td = link_to t('scaffold.index.destroy'), <%= @rails.path.resource %>, data: {:confirm => t('scaffold.confirm')}, :method => :delete
+    = paginate @<%= @rails.resource.collection_name %>
 
   .small-12.medium-2.columns
     aside.callout.clearfix.actions
-      = link_to t('scaffold.actions.new', model: <%= @modulized_resource_class_name %>.model_name.human.mb_chars.downcase), <%= @new_resource_path %>, class: 'button small secondary'
+      = link_to t('scaffold.actions.new', model: <%= @rails.resource.class_name_with_modules %>.model_name.human.mb_chars.downcase), <%= @rails.path.new_resource %>, class: 'button small secondary'
 
     aside.search.callout.clearfix
       h5 = t('scaffold.index.search.header')
 
-      = simple_form_for <%= "@#{@collection_name}_search" %>, as: :<%= @collection_name %>_search, url: <%= @collection_path %>, method: :get  do |form|
+      = simple_form_for <%= "@#{@rails.resource.collection_name}_search" %>, as: :<%= @rails.resource.collection_name %>_search, url: <%= @rails.path.collection %>, method: :get  do |form|
         = form.error_notification
         .form-inputs
-<% @fields.select {|k,v| @search_fields.include?(k) }.each_pair do |field_name, field_type| %>
+<% @rails.resource.fields.select {|k,v| @rails.controller.search_fields.include?(k) }.each_pair do |field_name, field_type| %>
 <% if field_type == 'belongs_to' -%>
           = form.input :<%= field_name -%>_id
 <% elsif ['date', 'datetime'].include?(field_type) -%>
@@ -45,4 +45,4 @@ h1 = t('scaffold.index.title', model: <%= @modulized_resource_class_name %>.mode
 
         .form-actions
           = form.submit t('scaffold.index.search.button'), class: 'button'
-          = link_to t('scaffold.index.search.reset'),  url_for(<%= @collection_path %>), class: 'button small secondary'
+          = link_to t('scaffold.index.search.reset'),  url_for(<%= @rails.path.collection %>), class: 'button small secondary'

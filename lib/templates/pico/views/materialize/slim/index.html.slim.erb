@@ -1,9 +1,9 @@
-h1 = t('scaffold.index.title', model: <%= @modulized_resource_class_name %>.model_name.human(count: 2))
+h1 = t('scaffold.index.title', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 2))
 
 .fixed-action-btn style="bottom: 45px; right: 24px;"
-  = link_to <%= @new_resource_path %>, class: 'btn-floating btn-large waves-effect waves-light red' do
+  = link_to <%= @rails.path.new_resource %>, class: 'btn-floating btn-large waves-effect waves-light red' do
     i.material-icons.right add
-    = t('scaffold.actions.new', model: <%= @modulized_resource_class_name %>.model_name.human(count: 1).mb_chars.downcase)
+    = t('scaffold.actions.new', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 1).mb_chars.downcase)
 
 
 
@@ -14,32 +14,32 @@ h1 = t('scaffold.index.title', model: <%= @modulized_resource_class_name %>.mode
         table.striped.highlight.responsive-table
           thead
             tr
-            <% @fields.select {|k,v| @index_fields.include?(k) }.keys.each do |field_name| %>
-              th = <%= @modulized_resource_class_name -%>.human_attribute_name(:<%= field_name -%>)
+            <% @rails.resource.fields.select {|k,v| @rails.controller.index_fields.include?(k) }.keys.each do |field_name| %>
+              th = <%= @rails.resource.class_name_with_modules -%>.human_attribute_name(:<%= field_name -%>)
             <% end %>
               th colspan=3 = t('scaffold.index.actions')
 
           tbody
-            - @<%= @collection_name %>.each do |<%= @resource_name %>|
+            - @<%= @rails.resource.collection_name %>.each do |<%= @rails.resource.name %>|
               tr
-              <% @fields.select {|k,v| @index_fields.include?(k) }.keys.each do |field_name| %>
-                td = <%= @resource_name %>.<%= field_name -%>
+              <% @rails.resource.fields.select {|k,v| @rails.controller.index_fields.include?(k) }.keys.each do |field_name| %>
+                td = <%= @rails.resource.name %>.<%= field_name -%>
               <% end %>
-                td = link_to t('scaffold.index.show'), <%= @resource_path %>
-                td = link_to t('scaffold.index.edit'), <%= @edit_resource_path %>
-                td = link_to t('scaffold.index.destroy'), <%= @resource_path %>, data: {:confirm => t('scaffold.confirm')}, :method => :delete
+                td = link_to t('scaffold.index.show'), <%= @rails.path.resource %>
+                td = link_to t('scaffold.index.edit'), <%= @rails.path.edit_resource %>
+                td = link_to t('scaffold.index.destroy'), <%= @rails.path.resource %>, data: {:confirm => t('scaffold.confirm')}, :method => :delete
       .card-action
-        = paginate @<%= @collection_name %>
+        = paginate @<%= @rails.resource.collection_name %>
 
   .col.s12.m3
 
     aside.card.search
-      = simple_form_for <%= "@#{@collection_name}_search" %>, as: :<%= @collection_name %>_search, url: <%= @collection_path %>, method: :get  do |form|
+      = simple_form_for <%= "@#{@rails.resource.collection_name}_search" %>, as: :<%= @rails.resource.collection_name %>_search, url: <%= @rails.path.collection %>, method: :get  do |form|
         .card-content
           h5 = t('scaffold.index.search.header')
           = form.error_notification
 
-<% @fields.select {|k,v| @search_fields.include?(k) }.each_pair do |field_name, field_type| %>
+<% @rails.resource.fields.select {|k,v| @rails.controller.search_fields.include?(k) }.each_pair do |field_name, field_type| %>
 <% if field_type == 'belongs_to' -%>
           = form.input :<%= field_name -%>_id
 <% elsif ['date', 'datetime'].include?(field_type) -%>
@@ -52,6 +52,6 @@ h1 = t('scaffold.index.title', model: <%= @modulized_resource_class_name %>.mode
 <% end %>
 
         .card-action
-          = link_to t('scaffold.index.search.reset'),  url_for(<%= @collection_path %>), class: 'waves-effect waves-light btn lime lighten-5 black-text'
+          = link_to t('scaffold.index.search.reset'),  url_for(<%= @rails.path.collection %>), class: 'waves-effect waves-light btn lime lighten-5 black-text'
           = form.submit t('scaffold.index.search.button'), class: 'right waves-effect waves-light btn'
     .clearfix

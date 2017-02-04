@@ -1,14 +1,16 @@
-h1 = t('scaffold.new.title', model: <%= @resource_class_name %>.model_name.human(count: 1).mb_chars.downcase)
+h1 = t('scaffold.new.title', model: <%= @rails.resource.class_name %>.model_name.human(count: 1).mb_chars.downcase)
 
 .section
   .left
-    = link_to <%= @collection_path %>, class: 'waves-effect waves-light btn' do
+    = link_to <%= @rails.path.collection %>, class: 'waves-effect waves-light btn' do
       i.material-icons.right view_list
-      = t('scaffold.show.actions.index', model: <%= @resource_class_name %>.model_name.human(count: 2).mb_chars.downcase)
+      = t('scaffold.show.actions.index', model: <%= @rails.resource.class_name %>.model_name.human(count: 2).mb_chars.downcase)
 
 .clearfix
 
 .card
   .card-content
-    = simple_form_for <%= @instance_resource_path %> do |form|
+    = simple_form_for <%= @rails.path.instance_resource %> do |form|
       = render 'form', form: form
+      .form-actions
+        = form.button :button, t('scaffold.actions.create', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 1)), :class => 'btn btn-large waves-effect waves'

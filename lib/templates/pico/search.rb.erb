@@ -1,8 +1,8 @@
-class <%= @search_modulized_resource_class_name %>
+class <%= @rails.resource.search_class_name %>
   include ActiveModel::Model
 
   attr_accessor(
-<% @fields.select {|k,v| @search_fields.include?(k) }.each_pair do |field_name, field_type| %>
+<% @rails.resource.fields.select {|k,v| @rails.controller.search_fields.include?(k) }.each_pair do |field_name, field_type| %>
   <% if field_type == 'belongs_to' -%>
     :<%= field_name %>_id,
   <% else %>
@@ -11,37 +11,37 @@ class <%= @search_modulized_resource_class_name %>
 <% end %>
   )
 
-<% @fields.select {|k,v| @search_fields.include?(k) }.each_pair do |field_name, field_type| %>
+<% @rails.resource.fields.select {|k,v| @rails.controller.search_fields.include?(k) }.each_pair do |field_name, field_type| %>
   <%- if field_type == "integer" %>
   validates :<%= field_name -%>, numericality: { only_integer: true }, allow_blank: true
   <%- end  %>
 <%- end  %>
 
   def initialize *args
-    @relation = <%= @modulized_resource_class_name %>
+    @relation = <%= @rails.resource.class_name_with_modules %>
     super *args
   end
 
   def results
-    <%= @resource_name %> = @relation
+    <%= @rails.resource.name %> = @relation
 
-    <%= @resource_name %> = @relation.order("updated_at") if <%= @modulized_resource_class_name %>.respond_to?(:updated_at)
+    <%= @rails.resource.name %> = @relation.order("updated_at") if <%= @rails.resource.class_name_with_modules %>.respond_to?(:updated_at)
 
     if valid?
-<% @fields.select {|k,v| @search_fields.include?(k) }.each_pair do |field_name, field_type| %>
+<% @rails.resource.fields.select {|k,v| @rails.controller.search_fields.include?(k) }.each_pair do |field_name, field_type| %>
   <% if ['string', 'text'].include?(field_type) -%>
-    <%= @resource_name %> = <%= @resource_name %>.where("<%= field_name %> LIKE ?", "%#{<%= field_name %>}%") if self.<%= field_name %>.present?
+    <%= @rails.resource.name %> = <%= @rails.resource.name %>.where("<%= field_name %> LIKE ?", "%#{<%= field_name %>}%") if self.<%= field_name %>.present?
   <% elsif field_type == "boolean" -%>
-    <%= @resource_name %> = <%= @resource_name %>.where(<%= field_name -%>: <%= field_name -%>=='1') if self.<%= field_name %>.present?
+    <%= @rails.resource.name %> = <%= @rails.resource.name %>.where(<%= field_name -%>: <%= field_name -%>=='1') if self.<%= field_name %>.present?
   <% elsif field_type == 'belongs_to' -%>
-    <%= @resource_name %> = <%= @resource_name %>.where(<%= field_name %>_id: <%= field_name %>_id) if self.<%= field_name %>_id.present?
+    <%= @rails.resource.name %> = <%= @rails.resource.name %>.where(<%= field_name %>_id: <%= field_name %>_id) if self.<%= field_name %>_id.present?
   <% else  -%>
-    <%= @resource_name %> = <%= @resource_name %>.where(<%= field_name %>: <%= field_name %>) if self.<%= field_name %>.present?
+    <%= @rails.resource.name %> = <%= @rails.resource.name %>.where(<%= field_name %>: <%= field_name %>) if self.<%= field_name %>.present?
   <% end  -%>
 <% end -%>
   end
 
-    <%= @resource_name %>
+    <%= @rails.resource.name %>
   end
 
 end

@@ -1,5 +1,5 @@
-class <%= @modulized_resource_class_name %> < ApplicationRecord
-<% @fields.select {|k,v| @search_fields.include?(k) }.each_pair do |field_name, field_type| -%>
+class <%= @rails.resource.class_name_with_modules %> < ApplicationRecord
+<% @rails.resource.fields.select {|k,v| @rails.controller.search_fields.include?(k) }.each_pair do |field_name, field_type| -%>
 <% if field_type == 'belongs_to' -%>
   belongs_to :<%= field_name %>
 <% end -%>

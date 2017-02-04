@@ -1,6 +1,6 @@
 = form.error_notification
 .form-inputs
-<%   @fields.each_pair do |field_name, kind| -%>
+<%   @rails.resource.fields.each_pair do |field_name, kind| -%>
 <%   if kind == 'file' -%>
     = form.input :<%= field_name -%>, as: :file
 <%   elsif kind == 'belongs_to' -%>
@@ -13,6 +13,3 @@
     = form.input :<%= field_name %>
 <%   end -%>
 <%   end -%>
-
-.form-actions
-  = form.button :button, 'Reset Password', :class => 'btn btn-large waves-effect waves'

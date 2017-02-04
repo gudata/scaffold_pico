@@ -21,11 +21,18 @@ module Scaffold
           desc 'Generate fabrication fabricator https://github.com/paulelliott/fabrication'
         end
 
-        option :namespace do
+        option :controller_namespaces do
           short '-n'
-          long '--namespace=namespace1/namespace2'
+          long '--controller_namespaces=namespace1/namespace2'
           validate  /\A(\w+(?:\/\w+)*)\z/
-          desc 'Optional namespace for the controllers. Example: -n admin/secret_area'
+          desc 'Optional namespaces for the controllers. Example: -n admin/secret_area. '
+        end
+
+        option :nested_in_resources do
+          short '-nr'
+          long '--nested_in_resources=client/building'
+          validate  /\A(\w+(?:\/\w+)*)\z/
+          desc 'Optional nest resource in other resources. Example: -nr building/floor -m Room'
         end
 
         option :base_controller do

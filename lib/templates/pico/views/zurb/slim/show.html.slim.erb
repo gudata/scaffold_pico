@@ -1,16 +1,16 @@
-h1 = t('scaffold.show.title', model: <%= @resource_class_name %>.model_name.human(count: 1).mb_chars.downcase)
+h1 = t('scaffold.show.title', model: <%= @rails.resource.class_name %>.model_name.human(count: 1).mb_chars.downcase)
 
 .callout.clearfix
   .float-left
-    = link_to t('scaffold.show.actions.index', model: <%= @resource_class_name %>.model_name.human(count: 2).mb_chars.downcase), <%= @collection_path %>, class: 'button small primary'
+    = link_to t('scaffold.show.actions.index', model: <%= @rails.resource.class_name %>.model_name.human(count: 2).mb_chars.downcase), <%= @rails.path.collection %>, class: 'button small primary'
   .float-right
-    = link_to t('scaffold.actions.edit', model: <%= @resource_class_name %>.model_name.human(count: 1).mb_chars.downcase), <%= @instance_edit_resource_path %>, class: 'button small warning'
-    = link_to t('scaffold.actions.new', model: <%= @resource_class_name %>.model_name.human(count: 1).mb_chars.downcase), <%= @new_resource_path %>, class: 'button small secondary'
+    = link_to t('scaffold.actions.edit', model: <%= @rails.resource.class_name %>.model_name.human(count: 1).mb_chars.downcase), <%= @rails.path.edit_instance_resource %>, class: 'button small warning'
+    = link_to t('scaffold.actions.new', model: <%= @rails.resource.class_name %>.model_name.human(count: 1).mb_chars.downcase), <%= @rails.path.new_resource %>, class: 'button small secondary'
 
 table
   tbody
-    <% @fields.keys.each do |field_name| %>
+    <% @rails.resource.fields.keys.each do |field_name| %>
     tr
-      td = <%= @resource_class_name -%>.human_attribute_name(:<%= field_name -%>)
-      td = @<%= @resource_name %>.<%= field_name -%>
+      td = <%= @rails.resource.class_name -%>.human_attribute_name(:<%= field_name -%>)
+      td = @<%= @rails.resource.name %>.<%= field_name -%>
     <% end %>

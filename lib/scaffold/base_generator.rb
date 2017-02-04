@@ -4,8 +4,8 @@ module Scaffold
   class BaseGenerator
     @@aways_ovewrite = false
 
-    def initialize params
-      @params = params
+    def initialize rails
+      @rails = rails
     end
 
     def objectify
@@ -54,6 +54,14 @@ module Scaffold
       @@aways_ovewrite = true if answer == 'a'
 
       IO.write(target_file_path, content) if answer == 'y'
+    end
+
+    def parse_template(content, context_hash)
+      # http://www.stuartellis.eu/articles/erb/
+      # content = ::ERB.new(content, nil, '-').result(@params.instance_eval{ binding })#.gsub(/\s+\n$/, "")
+
+      # content = ::ERB.new(content, 0, '>').result(ErbContext.new(context_hash).get_binding)
+      content = ::ERB.new(content, 0, '-').result(ErbContext.new(context_hash).get_binding)
     end
 
   end

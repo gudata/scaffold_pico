@@ -3,12 +3,11 @@ module Scaffold
     def generate
       fabricators_path = create_fabricators_path
       source_file_name = "fabrication.rb.erb"
-      target_file_name = "#{@params.resource_name}_fabricator.rb"
+      target_file_name = "#{@rails.resource.name}_fabricator.rb"
       source_file_path = find_root(templates, 'fabricators', source_file_name)
       content = File.read(source_file_path)
 
-      # http://www.stuartellis.eu/articles/erb/
-      content = ::ERB.new(content, nil, '-').result(@params.instance_eval{ binding })#.gsub(/\s+\n$/, "")
+      content = parse_template(content, {rails: @rails})
 
       target_file_path = File.join(fabricators_path, target_file_name)
 
