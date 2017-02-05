@@ -1,5 +1,13 @@
 class <%= @rails.controller.class_name %> < <%= @rails.controller.base_controller %>
 
+<% @rails.nested_in_resources.each do |resource| -%>
+  def <%= resource.name %>
+    <%= resource.instance_name %> ||= <%= resource.class_name_with_modules %>.find(params[:<%= resource.param_name %>])
+  end
+  helper_method :<%= resource.name %>
+
+<% end %>
+
   def index
     <%= "@#{@rails.resource.collection_name}_search = #{@rails.resource.search_class_name}.new(search_#{@rails.resource.collection_name}_params)" %>
     <%=

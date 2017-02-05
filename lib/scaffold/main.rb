@@ -6,11 +6,11 @@ module Scaffold
     end
 
     def run
-      Scaffold::FabricatorGenerator.new(@rails).generate if @choice[:fabrication]
-      Scaffold::ControllerGenerator.new(@rails).generate
-      Scaffold::ModelsGenerator.new(@rails).generate
-      Scaffold::ViewsGenerator.new(@rails).generate(@choice[:template], @choice[:css_framework])
-      Scaffold::RoutesGenerator.new(@rails).generate
+      Scaffold::Generators::FabricatorGenerator.new(@rails).generate if @choice[:fabrication]
+      Scaffold::Generators::ControllerGenerator.new(@rails).generate
+      Scaffold::Generators::ModelsGenerator.new(@rails).generate
+      Scaffold::Generators::ViewsGenerator.new(@rails).generate(@choice[:template], @choice[:css_framework])
+      Scaffold::Generators::RoutesGenerator.new(@rails).generate
     end
 
   end

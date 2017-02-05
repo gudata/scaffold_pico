@@ -6,5 +6,5 @@ ruby -I $SCAFFOLD_PICO_HOME/lib $SCAFFOLD_PICO_HOME/bin/scaffold_pico \
   --search-fields name aspect_ratio license created_at \
   --fabrication \
   --services_folder=services \
-  --debug --css_framework=materialize
+  --debug --css_framework=materialize --force
   # --nested_in_resources \

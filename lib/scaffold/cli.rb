@@ -16,6 +16,11 @@ module Scaffold
           desc 'print some debug info'
         end
 
+        option :force do
+          long '--force'
+          desc 'Overwrite without asking questions'
+        end
+
         option :fabrication do
           long '--fabrication'
           desc 'Generate fabrication fabricator https://github.com/paulelliott/fabrication'
@@ -30,9 +35,9 @@ module Scaffold
 
         option :nested_in_resources do
           short '-nr'
-          long '--nested_in_resources=client/building'
-          validate  /\A(\w+(?:\/\w+)*)\z/
-          desc 'Optional nest resource in other resources. Example: -nr building/floor -m Room'
+          long '--nested_in_resources=Reports::Client/Building'
+          validate  /\A(?:::)?(?:(?:[A-Z]\w*(?:::[A-Z]\w*)*)\/?)*\z/
+          desc 'Optional nest resource in other resources. Example: -nr Reports::Client/Building -m Room'
         end
 
         option :base_controller do
@@ -64,7 +69,7 @@ module Scaffold
         option :fields do
           long '-f'
           long '--fields *FIELDS'
-          desc 'title:string body:text published:boolean amount:decimal attachment:file tracking_id:integer:uniq '
+          desc 'title:string library:belongs_to body:text published:boolean amount:decimal attachment:file tracking_id:integer:uniq '
         end
 
         option :index_fields do

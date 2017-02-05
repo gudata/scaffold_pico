@@ -1,8 +1,9 @@
-require_relative 'rails/controller'
-require_relative 'rails/path'
-require_relative 'rails/resource'
-require_relative 'rails/route'
-require_relative 'rails/view'
+require_relative 'services/controller'
+require_relative 'services/path'
+require_relative 'services/resource'
+require_relative 'services/nested_in_resources'
+require_relative 'services/route'
+require_relative 'services/view'
 
 module Scaffold
   class Rails
@@ -10,17 +11,19 @@ module Scaffold
     attr :path, false
     attr :choice, false
     attr :resource, false
+    attr :nested_in_resources, false
     attr :route, false
     attr :view, false
 
     def initialize choice
       @choice = choice
 
-      @resource = Resource.new(self)
-      @controller = Controller.new(self)
-      @route = Route.new(self)
-      @path = Path.new(self)
-      @view = View.new(self)
+      @resource = Services::Resource.new(self)
+      @nested_in_resources = Services::NestedInResources.new(self)
+      @controller = Services::Controller.new(self)
+      @route = Services::Route.new(self)
+      @path = Services::Path.new(self)
+      @view = Services::View.new(self)
 
       debug_info if choice[:debug]
     end
