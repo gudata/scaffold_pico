@@ -2,18 +2,18 @@
 ## Scaffolding done right
 With this gem you can create your own pretty administration with a seconds.
 
-No learning curve.
+No learning curve - clean Ruby on Rails.
 
 No need to learn DSLs or support 3rd party gems.
 
-
 * Support namespaces for the model and the controllers
-* Generate fabricators
-* Supports different css frameworks - zurb / materializecss
-* Can specify different fields for #index, #edit/new and search
+* You can generate scaffolds for nested resources
 * Can override every file per project
+* Supports different css frameworks - zurb / materializecss
+* Generate fabricators
+* Define #index, #edit/new and search during the scafold creation
 * You can specify includes/joins for the #index action
-* Includes search
+* Implement basic search
 
 ![alt tag](https://raw.githubusercontent.com/gudata/scaffold_pico/master/doc/screenshot_index.jpg)
 
