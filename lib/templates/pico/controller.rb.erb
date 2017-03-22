@@ -1,5 +1,7 @@
 class <%= @rails.controller.class_name %> < <%= @rails.controller.base_controller %>
 
+  protect_from_forgery with: :exception
+                                                                
 <% @rails.nested_in_resources.each do |resource| -%>
   def <%= resource.name %>
     <%= resource.instance_name %> ||= <%= resource.class_name_with_modules %>.find(params[:<%= resource.param_name %>])
