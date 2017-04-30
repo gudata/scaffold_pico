@@ -13,7 +13,7 @@ No learning curve - replace Ruby on Rails scaffold, no DSLs or 3rd party gems.
 
 # SYNOPSIS
 
-    scaffold_pico.rb \
+    scaffold_pico \
       -m Admin::Vector -n administration -b AdminController \
       --nested_in_resources Assets::VectorFrame \
       --fields name: description:text featured:boolean license:belongs_to group_id:integer svg:file \
