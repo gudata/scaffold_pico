@@ -10,8 +10,6 @@ No learning curve - replace Ruby on Rails scaffold, no DSLs or 3rd party gems.
 * You can specify includes/joins for the #index action
 * Implement basic search
 
-![alt tag](https://raw.githubusercontent.com/gudata/scaffold_pico/master/doc/screenshot_index.jpg)
-
 
 # SYNOPSIS
 
@@ -24,6 +22,10 @@ No learning curve - replace Ruby on Rails scaffold, no DSLs or 3rd party gems.
       --fabrication \
       --services_folder=services \
       --debug --css_framework=materialize
+
+
+![alt tag](https://raw.githubusercontent.com/gudata/scaffold_pico/master/doc/screenshot_index.jpg)
+
 
 
 # Install
