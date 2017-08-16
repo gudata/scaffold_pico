@@ -129,7 +129,7 @@ module Scaffold
 
     def run
       if Choice[:model]
-        add_custom_inflector(Choice.choices[:custom_inflector])
+        add_custom_inflection(Choice.choices[:custom_inflector])
         scaffold = Scaffold::Main.new(Choice.choices)
         scaffold.run
       else
@@ -139,7 +139,7 @@ module Scaffold
 
     private
 
-    def add_custom_inflector(inflection)
+    def add_custom_inflection(inflection)
       ActiveSupport::Inflector.inflections do |inflect|
         inflect.irregular inflection.first, inflection.last
       end
