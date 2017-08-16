@@ -84,6 +84,10 @@ module Scaffold
           desc 'Fields on which the search will be done. Example: --search-fields title body published amount tracking_id'
         end
 
+        option :custom_inflection do
+          long '--custom_inflection *FIELDS'
+          desc 'Custom singular and plural form. Example: --custom_inflection campus campuses'
+        end
 
         separator ''
         separator 'Defaults: '
@@ -111,7 +115,6 @@ module Scaffold
           desc 'Where to put the search model. Example: --services=actions'
         end
 
-
         separator ''
         separator 'Common options: '
 
@@ -122,15 +125,23 @@ module Scaffold
 
       end
 
-
     end
 
     def run
       if Choice[:model]
+        add_custom_inflection(Choice.choices[:custom_inflection])
         scaffold = Scaffold::Main.new(Choice.choices)
         scaffold.run
       else
         puts "try #{$0} --help"
+      end
+    end
+
+    private
+
+    def add_custom_inflection(inflection)
+      ActiveSupport::Inflector.inflections do |inflect|
+        inflect.irregular inflection.first, inflection.last
       end
     end
   end
