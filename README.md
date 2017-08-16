@@ -21,7 +21,8 @@ No learning curve - replace Ruby on Rails scaffold, no DSLs or 3rd party gems.
       --search-fields name aspect_ratio license created_at \
       --fabrication \
       --services_folder=services \
-      --debug --css_framework=materialize
+      --debug --css_framework=materialize \
+      --custom_inflection vector vectors
 
 
 ![alt tag](https://raw.githubusercontent.com/gudata/scaffold_pico/master/doc/screenshot_index.jpg)
