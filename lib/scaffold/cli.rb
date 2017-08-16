@@ -84,9 +84,9 @@ module Scaffold
           desc 'Fields on which the search will be done. Example: --search-fields title body published amount tracking_id'
         end
 
-        option :custom_inflector do
-          long '--custom_inflector *FIELDS'
-          desc 'Custom singular and plural form. Example: --custom_inflector campus campuses'
+        option :custom_inflection do
+          long '--custom_inflection *FIELDS'
+          desc 'Custom singular and plural form. Example: --custom_inflection campus campuses'
         end
 
         separator ''
@@ -129,7 +129,7 @@ module Scaffold
 
     def run
       if Choice[:model]
-        add_custom_inflection(Choice.choices[:custom_inflector])
+        add_custom_inflection(Choice.choices[:custom_inflection])
         scaffold = Scaffold::Main.new(Choice.choices)
         scaffold.run
       else
