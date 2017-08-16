@@ -66,6 +66,7 @@ module Scaffold
         # content = ::ERB.new(content, nil, '-').result(@params.instance_eval{ binding })#.gsub(/\s+\n$/, "")
 
         # content = ::ERB.new(content, 0, '>').result(ErbContext.new(context_hash).get_binding)
+        # https://github.com/jeremyevans/erubi
         content = ::ERB.new(content, 0, '-').result(ErbContext.new(context_hash).get_binding)
       end
 

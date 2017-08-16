@@ -37,7 +37,9 @@ module Scaffold
 
       # Admin::ClassRooms::Etc
       def namespaces_as_modules
-        namespaces_as_path.join.camelize
+        puts "namespaces_as_path: #{namespaces_as_path}"
+        puts "namespaces_as_path.join.camelize: #{namespaces_as_path.map(&:camelize).join('::')}"
+        namespaces_as_path.map(&:camelize).join('::')
       end
 
       # ['admin', 'classrooms' ]

@@ -128,8 +128,9 @@ module Scaffold
     end
 
     def run
+
       if Choice[:model]
-        add_custom_inflection(Choice.choices[:custom_inflection])
+        add_custom_inflection(Choice.choices[:custom_inflection]) if Choice.choices[:custom_inflection]
         scaffold = Scaffold::Main.new(Choice.choices)
         scaffold.run
       else

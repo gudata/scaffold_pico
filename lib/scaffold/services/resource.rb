@@ -11,21 +11,27 @@ module Scaffold
       def model_name
         @resource.model_name
       end
+
       def modules
         @resource.modules
       end
+
       def modules?
         @resource.modules?
       end
+
       def name
         @resource.name
       end
+
       def class_name
         @resource.class_name
       end
+
       def collection_name
         @resource.collection_name
       end
+
       def class_name_with_modules
         @resource.class_name_with_modules
       end
