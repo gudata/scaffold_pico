@@ -1,10 +1,10 @@
-h1 = t('scaffold.new.title', model: <%= @rails.resource.class_name %>.model_name.human(count: 1).mb_chars.downcase)
+h1 = t('scaffold.new.title', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 1).mb_chars.downcase)
 
 .section
   .left
     = link_to <%= @rails.path.collection %>, class: 'waves-effect waves-light btn' do
       i.material-icons.right view_list
-      = t('scaffold.show.actions.index', model: <%= @rails.resource.class_name %>.model_name.human(count: 2).mb_chars.downcase)
+      = t('scaffold.show.actions.index', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 2).mb_chars.downcase)
 
 .clearfix
 
