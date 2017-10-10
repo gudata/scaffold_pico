@@ -7,8 +7,8 @@ module Scaffold
 
       # example: Manage::BooksController
       def class_name
-        if @rails.controller.namespaced?
-          "#{namespaces_as_modules}::#{@rails.resource.class_name.pluralize}Controller"
+        if self.namespaced?
+          "#{self.namespaces_as_modules}::#{@rails.resource.class_name.pluralize}Controller"
         else
           "#{@rails.resource.class_name.pluralize}Controller"
         end
