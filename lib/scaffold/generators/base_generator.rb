@@ -40,25 +40,20 @@ module Scaffold
       end
 
       def write_with_confirmation(target_file_path, content)
-        unless File.exists?(target_file_path)
+        if !File.exists?(target_file_path) || @rails.choice[:force].present?
           IO.write(target_file_path, content)
           return
         end
 
-        @@aways_ovewrite = 'a' if @rails.choice[:force].present?
-
         answer = if @@aways_ovewrite
-          if @rails.choice[:force].blank?
-            puts "#{target_file_path} exists, overwrite? [yaN] y"
-          end
-          'y'
+          'a'
         else
-           ask("#{target_file_path} exists, overwrite? [yaN]").downcase
+          ask("#{target_file_path} exists, overwrite? [yaN]").downcase
         end
 
-        @@aways_ovewrite = true if answer == 'a'
+        @@aways_ovewrite = answer == 'a'
 
-        IO.write(target_file_path, content) if answer == 'y'
+        IO.write(target_file_path, content) if answer == 'y' || @@aways_ovewrite
       end
 
       def parse_template(content, context_hash)
