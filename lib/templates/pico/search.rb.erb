@@ -25,7 +25,7 @@ class <%= @rails.resource.search_class_name %>
   def results
     <%= @rails.resource.name %> = @relation
 
-    <%= @rails.resource.name %> = @relation.order("updated_at") if <%= @rails.resource.class_name_with_modules %>.respond_to?(:updated_at)
+    <%= @rails.resource.name %> = @relation.order("updated_at") if <%= @rails.resource.class_name_with_modules %>.column_names.include?('updated_at')
 
     if valid?
 <% @rails.resource.fields.select {|k,v| @rails.controller.search_fields.include?(k) }.each_pair do |field_name, field_type| %>
