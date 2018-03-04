@@ -1,26 +1,27 @@
-h1 = t('scaffold.show.title', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 1).mb_chars.downcase)
+.container
+  h1 = t('scaffold.show.title', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 1).mb_chars.downcase)
 
-.section
-  .left
-    = link_to <%= @rails.path.collection %>, class: 'waves-effect waves-light btn' do
-      i.material-icons.right view_list
-      = t('scaffold.actions.index', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 2).mb_chars.downcase)
-  .right
-    = link_to <%= @rails.path.edit_instance_resource %>, class: 'btn waves-effect waves-light' do
-      i.material-icons.right mode_edit
-      = t('scaffold.actions.edit', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 1).mb_chars.downcase)
-    = link_to <%= @rails.path.new_resource %>, class: 'btn waves-effect waves-light' do
-      i.material-icons.right add
-      = t('scaffold.actions.new', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 1).mb_chars.downcase)
+  .section
+    .left
+      = link_to <%= @rails.path.collection %>, class: 'waves-effect waves-light btn' do
+        i.material-icons.right view_list
+        = t('scaffold.actions.index', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 2).mb_chars.downcase)
+    .right
+      = link_to <%= @rails.path.edit_instance_resource %>, class: 'btn waves-effect waves-light' do
+        i.material-icons.right mode_edit
+        = t('scaffold.actions.edit', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 1).mb_chars.downcase)
+      = link_to <%= @rails.path.new_resource %>, class: 'btn waves-effect waves-light' do
+        i.material-icons.right add
+        = t('scaffold.actions.new', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 1).mb_chars.downcase)
 
-.clearfix
+  .clearfix
 
-.card
-  .card-content
-    table.striped.highlight.responsive-table
-      tbody
-        <% @rails.resource.fields.keys.each do |field_name| %>
-        tr
-          td = <%= @rails.resource.class_name_with_modules -%>.human_attribute_name(:<%= field_name -%>)
-          td = @<%= @rails.resource.name %>.<%= field_name -%>
-        <% end %>
+  .card
+    .card-content
+      table.striped.highlight.responsive-table
+        tbody
+          <% @rails.resource.fields.keys.each do |field_name| %>
+          tr
+            td = <%= @rails.resource.class_name_with_modules -%>.human_attribute_name(:<%= field_name -%>)
+            td = @<%= @rails.resource.name %>.<%= field_name -%>
+          <% end %>

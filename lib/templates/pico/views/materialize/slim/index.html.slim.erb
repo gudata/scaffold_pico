@@ -1,57 +1,58 @@
-h1 = t('scaffold.index.title', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 2))
+.container
+  h1 = t('scaffold.index.title', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 2))
 
-.fixed-action-btn style="bottom: 45px; right: 24px;"
-  = link_to <%= @rails.path.new_resource %>, class: 'btn-floating btn-large waves-effect waves-light red' do
-    i.material-icons.right add
-    = t('scaffold.actions.new', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 1).mb_chars.downcase)
+  .fixed-action-btn style="bottom: 45px; right: 24px;"
+    = link_to <%= @rails.path.new_resource %>, class: 'btn-floating btn-large waves-effect waves-light red' do
+      i.material-icons.right add
+      = t('scaffold.actions.new', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 1).mb_chars.downcase)
 
 
 
-.row
-  .col.s12.m9
-    .card
-      .card-content
-        table.striped.highlight.responsive-table
-          thead
-            tr
-            <% @rails.resource.fields.select {|k,v| @rails.controller.index_fields.include?(k) }.keys.each do |field_name| %>
-              th = <%= @rails.resource.class_name_with_modules -%>.human_attribute_name(:<%= field_name -%>)
-            <% end %>
-              th colspan=3 = t('scaffold.index.actions')
-
-          tbody
-            - @<%= @rails.resource.collection_name %>.each do |<%= @rails.resource.name %>|
+  .row
+    .col.s12.m9
+      .card
+        .card-content
+          table.striped.highlight.responsive-table
+            thead
               tr
               <% @rails.resource.fields.select {|k,v| @rails.controller.index_fields.include?(k) }.keys.each do |field_name| %>
-                td = <%= @rails.resource.name %>.<%= field_name -%>
+                th = <%= @rails.resource.class_name_with_modules -%>.human_attribute_name(:<%= field_name -%>)
               <% end %>
-                td = link_to t('scaffold.index.show'), <%= @rails.path.resource %>
-                td = link_to t('scaffold.index.edit'), <%= @rails.path.edit_resource %>
-                td = link_to t('scaffold.index.destroy'), <%= @rails.path.resource %>, data: {:confirm => t('scaffold.confirm')}, :method => :delete
-      .card-action
-        = paginate @<%= @rails.resource.collection_name %>
+                th colspan=3 = t('scaffold.index.actions')
 
-  .col.s12.m3
-
-    aside.card.search
-      = simple_form_for <%= "@#{@rails.resource.collection_name}_search" %>, as: :<%= @rails.resource.collection_name %>_search, url: <%= @rails.path.collection %>, method: :get  do |form|
-        .card-content
-          h5 = t('scaffold.index.search.header')
-          = form.error_notification
-
-<% @rails.resource.fields.select {|k,v| @rails.controller.search_fields.include?(k) }.each_pair do |field_name, field_type| %>
-<% if field_type == 'belongs_to' -%>
-          = form.input :<%= field_name -%>_id
-<% elsif ['date', 'datetime'].include?(field_type) -%>
-          = form.input :<%= field_name -%>, as: :date, html5: true
-<% elsif field_type == 'boolean' -%>
-          = form.input :<%= field_name -%>, as: :boolean, input_html: {class: 'filled-in'}
-<% else %>
-          = form.input :<%= field_name -%>
-<% end -%>
-<% end %>
-
+            tbody
+              - @<%= @rails.resource.collection_name %>.each do |<%= @rails.resource.name %>|
+                tr
+                <% @rails.resource.fields.select {|k,v| @rails.controller.index_fields.include?(k) }.keys.each do |field_name| %>
+                  td = <%= @rails.resource.name %>.<%= field_name -%>
+                <% end %>
+                  td = link_to t('scaffold.index.show'), <%= @rails.path.resource %>
+                  td = link_to t('scaffold.index.edit'), <%= @rails.path.edit_resource %>
+                  td = link_to t('scaffold.index.destroy'), <%= @rails.path.resource %>, data: {:confirm => t('scaffold.confirm')}, :method => :delete
         .card-action
-          = link_to t('scaffold.index.search.reset'),  url_for(<%= @rails.path.collection %>), class: 'waves-effect waves-light btn lime lighten-5 black-text'
-          = form.submit t('scaffold.index.search.button'), class: 'right waves-effect waves-light btn'
-    .clearfix
+          = paginate @<%= @rails.resource.collection_name %>
+
+    .col.s12.m3
+
+      aside.card.search
+        = simple_form_for <%= "@#{@rails.resource.collection_name}_search" %>, as: :<%= @rails.resource.collection_name %>_search, url: <%= @rails.path.collection %>, method: :get  do |form|
+          .card-content
+            h5 = t('scaffold.index.search.header')
+            = form.error_notification
+
+  <% @rails.resource.fields.select {|k,v| @rails.controller.search_fields.include?(k) }.each_pair do |field_name, field_type| %>
+  <% if field_type == 'belongs_to' -%>
+            = form.input :<%= field_name -%>_id
+  <% elsif ['date', 'datetime'].include?(field_type) -%>
+            = form.input :<%= field_name -%>, as: :date, html5: true
+  <% elsif field_type == 'boolean' -%>
+            = form.input :<%= field_name -%>, as: :boolean, input_html: {class: 'filled-in'}
+  <% else %>
+            = form.input :<%= field_name -%>
+  <% end -%>
+  <% end %>
+
+          .card-action
+            = link_to t('scaffold.index.search.reset'),  url_for(<%= @rails.path.collection %>), class: 'waves-effect waves-light btn lime lighten-5 black-text'
+            = form.submit t('scaffold.index.search.button'), class: 'right waves-effect waves-light btn'
+      .clearfix
