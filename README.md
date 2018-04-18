@@ -49,12 +49,12 @@ There is no need to have it in your gem file.
 If you want to change something you can override/change
 
     RAILS_ROOT/config/locales/en.scaffold_pico.yml
-    RAILS_ROOT/lib/templates/pico
+    RAILS_ROOT/lib/templates/pico/
                                 /controller.rb
                                 /search.rb
                                 /fabricators
                                   fabrication.rb.erb
-                                /views
+                                /views/{materialize|zurb} <<< Note !
                                   /materialize
                                     _form.html.slim.erb
                                     edit.html.slim.erb
