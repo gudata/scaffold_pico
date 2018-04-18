@@ -50,11 +50,19 @@ module Scaffold
 
       # which fields will be visible on the index page
       def index_fields
-        @rails.choice[:index_fields].blank? ? @rails.resource.fields.keys : @rails.choice[:index_fields]
+        if @rails.choice[:index_fields].blank?
+          @rails.resource.fields.keys
+        else
+          @rails.choice[:index_fields].collect{|field| field.split(':').first}
+        end
       end
 
       def search_fields
-        @rails.choice[:search_fields].blank? ? @rails.resource.fields.keys : @rails.choice[:search_fields]
+        if @rails.choice[:search_fields].blank?
+          @rails.resource.fields.keys
+        else
+          @rails.choice[:search_fields].collect{|field| field.split(':').first}
+        end
       end
 
       # convert company => company_id
