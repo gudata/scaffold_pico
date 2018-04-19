@@ -1,15 +1,21 @@
 = form.error_notification
 .form-inputs
-<%   @rails.resource.fields.each_pair do |field_name, kind| -%>
-<%   if kind == 'file' -%>
-    = form.input :<%= field_name -%>, as: :file
-<%   elsif kind == 'belongs_to' -%>
-    = form.association :<%= field_name %>
-<%   elsif kind == 'text' -%>
-    = form.input :<%= field_name -%>, as: :text
-<%   elsif ['date', 'datetime'].include?(kind)  -%>
-    = form.input :<%= field_name -%>, as: :date, html5: true
-<%   else -%>
-    = form.input :<%= field_name %>
-<%   end -%>
-<%   end -%>
+<% @rails.resource.fields.each_pair do |field_name, kind| %>
+  <%- next if field_name == 'id' -%>
+  <%=
+    case kind
+    when 'file'
+      "= form.input :#{field_name}, as: :file"
+    when 'belongs_to'
+      "= form.association :#{field_name}"
+    when 'text'
+      "= form.input :#{field_name}, as: :text"
+    when 'date', 'datetime'
+      "= form.input :#{field_name}, as: :date, html5: true"
+    when 'boolean'
+      "= form.input :#{field_name}, as: :boolean"
+    else
+      "= form.input :#{field_name}"
+    end
+  -%>
+<% end %>
