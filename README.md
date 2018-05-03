@@ -92,3 +92,6 @@ You can't generate scaffolds for a mounted named engines. I don't know if we nee
 ## Copyright
 
 Copyright (c) 2017 gudata. See LICENSE.txt for further details.
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgudata%2Fscaffold_pico.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgudata%2Fscaffold_pico?ref=badge_shield)
+
