@@ -26,8 +26,12 @@ No learning curve - replace Ruby on Rails scaffold, no DSLs or 3rd party gems.
 
 
 ![alt tag](https://raw.githubusercontent.com/gudata/scaffold_pico/master/doc/screenshot_index.jpg)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgudata%2Fscaffold_pico.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgudata%2Fscaffold_pico?ref=badge_shield)
 
 
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgudata%2Fscaffold_pico.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgudata%2Fscaffold_pico?ref=badge_large)
 
 # Install
 The gem assume you have already in your Gemfile
