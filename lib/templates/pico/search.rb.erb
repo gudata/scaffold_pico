@@ -15,7 +15,7 @@ class <%= @rails.resource.search_class_name %>
 
   <% @rails.controller.search_fields.select { |search_filed| @rails.resource.fields[search_filed] == 'integer' }.each do |search_filed| %>
     <%=
-    "validates :#{field_name}, numericality: { only_integer: true }, allow_blank: true"
+    "validates :#{search_filed}, numericality: { only_integer: true }, allow_blank: true"
     -%>
   <% end %>
 
