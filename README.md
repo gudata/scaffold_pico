@@ -45,6 +45,21 @@ There is no need to have it in your gem file.
 
     gem install scaffold_pico
 
+Scaffold Pico is cryptographically signed. To be sure the gem you install hasn’t been tampered with:
+
+Add my public key (if you haven’t already) as a trusted certificate
+
+gem cert --add <(curl -Ls https://raw.githubusercontent.com/gudata/scaffold_pico/master/certs/gudata.pem)
+
+gem install scaffold_pico -P MediumSecurity
+
+The MediumSecurity trust profile will verify signed gems, but allow the installation of unsigned dependencies.
+
+This is necessary incase not all of Scaffold Pico’s dependencies are signed, so we cannot use HighSecurity.
+
+
+
+
 # Overriding
 If you want to change something you can override/change
 

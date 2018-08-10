@@ -4,22 +4,22 @@
 # -*- encoding: utf-8 -*-
 # stub: scaffold_pico 1.1.8 ruby lib
 
-Gem::Specification.new do |s|
-  s.name = "scaffold_pico".freeze
-  s.version = "1.1.8"
+Gem::Specification.new do |spec|
+  spec.name = "scaffold_pico".freeze
+  spec.version = "1.1.8"
 
-  s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
-  s.require_paths = ["lib".freeze]
-  s.authors = ["gudata".freeze]
-  s.date = "2018-05-10"
-  s.description = "Scaffolding".freeze
-  s.email = "i.bardarov@gmail.com".freeze
-  s.executables = ["scaffold_pico".freeze]
-  s.extra_rdoc_files = [
+  spec.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if spec.respond_to? :required_rubygems_version=
+  spec.require_paths = ["lib".freeze]
+  spec.authors = ["gudata".freeze]
+  spec.date = "2018-05-10"
+  spec.description = "Scaffolding".freeze
+  spec.email = "i.bardarov@gmail.com".freeze
+  spec.executables = ["scaffold_pico".freeze]
+  spec.extra_rdoc_files = [
     "LICENSE.txt",
     "README.md"
   ]
-  s.files = [
+  spec.files = [
     "lib/scaffold/cli.rb",
     "lib/scaffold/erb_context.rb",
     "lib/scaffold/generators/base_generator.rb",
@@ -57,33 +57,43 @@ Gem::Specification.new do |s|
     "lib/templates/pico/views/zurb/slim/new.html.slim.erb",
     "lib/templates/pico/views/zurb/slim/show.html.slim.erb"
   ]
-  s.homepage = "http://github.com/gudata/scaffold_pico".freeze
-  s.licenses = ["MIT".freeze]
-  s.rubygems_version = "2.5.2.2".freeze
-  s.summary = "Scaffold should be simple".freeze
+  spec.homepage = "http://github.com/gudata/scaffold_pico".freeze
+  spec.licenses = ["MIT".freeze]
+  spec.rubygems_version = "2.5.2.2".freeze
+  spec.summary = "Scaffold should be simple".freeze
 
-  if s.respond_to? :specification_version then
-    s.specification_version = 4
+  spec.metadata = {
+    'source_code_uri' => "http://github.com/gudata/scaffold_pico",
+    'bug_tracker_uri' => "http://github.com/gudata/scaffold_pico/issues",
+    'allowed_push_host' => 'https://gems.rifiniti.com',
+  }
+
+  spec.cert_chain  = ['certs/gudata.pem']
+  spec.signing_key = File.expand_path("~/.ssh/gems/gem-private_key.pem") if $0 =~ /gem\z/
+
+
+  if spec.respond_to? :specification_version then
+    spec.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<activesupport>.freeze, [">= 0"])
-      s.add_runtime_dependency(%q<choice>.freeze, [">= 0"])
-      s.add_runtime_dependency(%q<require_all>.freeze, [">= 0"])
-      s.add_development_dependency(%q<bundler>.freeze, ["~> 1.0"])
-      s.add_development_dependency(%q<jeweler>.freeze, [">= 0"])
+      spec.add_runtime_dependency(%q<activesupport>.freeze, [">= 0"])
+      spec.add_runtime_dependency(%q<choice>.freeze, [">= 0"])
+      spec.add_runtime_dependency(%q<require_all>.freeze, [">= 0"])
+      spec.add_development_dependency(%q<bundler>.freeze, ["~> 1.0"])
+      spec.add_development_dependency(%q<jeweler>.freeze, [">= 0"])
     else
-      s.add_dependency(%q<activesupport>.freeze, [">= 0"])
-      s.add_dependency(%q<choice>.freeze, [">= 0"])
-      s.add_dependency(%q<require_all>.freeze, [">= 0"])
-      s.add_dependency(%q<bundler>.freeze, ["~> 1.0"])
-      s.add_dependency(%q<jeweler>.freeze, [">= 0"])
+      spec.add_dependency(%q<activesupport>.freeze, [">= 0"])
+      spec.add_dependency(%q<choice>.freeze, [">= 0"])
+      spec.add_dependency(%q<require_all>.freeze, [">= 0"])
+      spec.add_dependency(%q<bundler>.freeze, ["~> 1.0"])
+      spec.add_dependency(%q<jeweler>.freeze, [">= 0"])
     end
   else
-    s.add_dependency(%q<activesupport>.freeze, [">= 0"])
-    s.add_dependency(%q<choice>.freeze, [">= 0"])
-    s.add_dependency(%q<require_all>.freeze, [">= 0"])
-    s.add_dependency(%q<bundler>.freeze, ["~> 1.0"])
-    s.add_dependency(%q<jeweler>.freeze, [">= 0"])
+    spec.add_dependency(%q<activesupport>.freeze, [">= 0"])
+    spec.add_dependency(%q<choice>.freeze, [">= 0"])
+    spec.add_dependency(%q<require_all>.freeze, [">= 0"])
+    spec.add_dependency(%q<bundler>.freeze, ["~> 1.0"])
+    spec.add_dependency(%q<jeweler>.freeze, [">= 0"])
   end
 end
 
