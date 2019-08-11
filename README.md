@@ -55,7 +55,7 @@ gem install scaffold_pico -P MediumSecurity
 
 The MediumSecurity trust profile will verify signed gems, but allow the installation of unsigned dependencies.
 
-This is necessary incase not all of Scaffold Pico’s dependencies are signed, so we cannot use HighSecurity.
+This is necessary in case not all of Scaffold Pico’s dependencies are signed, so we cannot use HighSecurity.
 
 
 
