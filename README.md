@@ -104,7 +104,7 @@ Help please: For some of the generated models/views there are extra blank links.
 You can't generate scaffolds for a mounted named engines. I don't know if we need this feature.
 
 
-## Copyright
+## License MIT
 
 Copyright (c) 2017 gudata. See LICENSE.txt for further details.
 
