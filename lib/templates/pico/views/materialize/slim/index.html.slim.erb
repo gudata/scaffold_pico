@@ -42,13 +42,13 @@
 
   <% @rails.resource.fields.select {|k,v| @rails.controller.search_fields.include?(k) }.each_pair do |field_name, field_type| %>
   <% if field_type == 'belongs_to' -%>
-            = form.input :<%= field_name -%>_id
+          = form.input :<%= field_name -%>_id
   <% elsif ['date', 'datetime'].include?(field_type) -%>
-            = form.input :<%= field_name -%>, as: :date, html5: true
+          = form.input :<%= field_name -%>, as: :date, html5: true
   <% elsif field_type == 'boolean' -%>
-            = form.input :<%= field_name -%>, as: :boolean, input_html: {class: 'filled-in'}
+          = form.input :<%= field_name -%>, as: :boolean, input_html: {class: 'filled-in'}
   <% else %>
-            = form.input :<%= field_name -%>
+          = form.input :<%= field_name -%>
   <% end -%>
   <% end %>
 
