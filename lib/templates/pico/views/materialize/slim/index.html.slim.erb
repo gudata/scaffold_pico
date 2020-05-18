@@ -23,8 +23,12 @@
             tbody
               - @<%= @rails.resource.collection_name %>.each do |<%= @rails.resource.name %>|
                 tr
-                <% @rails.resource.fields.select {|k,v| @rails.controller.index_fields.include?(k) }.keys.each do |field_name| %>
+                <% @rails.resource.fields.select {|k,v| @rails.controller.index_fields.include?(k) }.each_pair do |field_name, field_type| %>
+<% if ['date', 'datetime'].include?(field_type) -%>
+                  td.nowrap = l(<%= @rails.resource.name %>.<%= field_name -%>, format: :very_short)
+<% else -%>
                   td = <%= @rails.resource.name %>.<%= field_name -%>
+<% end -%>
                 <% end %>
                   td = link_to t('scaffold.index.show'), <%= @rails.path.resource %>
                   td = link_to t('scaffold.index.edit'), <%= @rails.path.edit_resource %>
