@@ -16,7 +16,11 @@ module Scaffold
     def run
       Scaffold::Generators::FabricatorGenerator.new(@rails).generate if @choice[:fabrication]
       Scaffold::Generators::ControllerGenerator.new(@rails).generate
-      Scaffold::Generators::ModelsGenerator.new(@rails).generate
+      if @choice[:no_model]
+        puts("Skipping generating the model...")
+      else
+        Scaffold::Generators::ModelsGenerator.new(@rails).generate
+      end
       Scaffold::Generators::ViewsGenerator.new(@rails).generate(@choice[:template], @choice[:css_framework])
       Scaffold::Generators::RoutesGenerator.new(@rails).generate
       Scaffold::Generators::LocalesGenerator.new(@rails).generate
