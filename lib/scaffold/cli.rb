@@ -54,7 +54,7 @@ module Scaffold
           validate  /\A(?:::)?([A-Z]\w*(?:::[A-Z]\w*)*)\z/
         end
 
-        option :no_model, :required => true do
+        option :no_model do
           long '--no-model'
           desc 'Do not generate file. It can help when you need to recreate the views on a model which already exists and have some code'
         end
@@ -129,11 +129,9 @@ module Scaffold
         end
 
       end
-
     end
 
     def run
-
       if Choice[:model]
         add_custom_inflection(Choice.choices[:custom_inflection]) if Choice.choices[:custom_inflection]
         scaffold = Scaffold::Main.new(Choice.choices)
