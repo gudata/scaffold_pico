@@ -1,0 +1,56 @@
+h1 = t('scaffold.index.title', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 2).mb_chars.downcase)
+
+.row
+  .col-sm-8.col-12
+    table.table.table-bordered.table-striped
+      thead
+        tr
+        <% @rails.resource.fields.select {|k,v| @rails.controller.index_fields.include?(k) }.keys.each do |field_name| %>
+          th = <%= @rails.resource.class_name_with_modules -%>.human_attribute_name(:<%= field_name -%>)
+        <% end %>
+          th colspan=3 = t('scaffold.index.actions')
+
+      tbody
+        - @<%= @rails.resource.collection_name %>.each do |<%= @rails.resource.name %>|
+          tr
+          <% @rails.resource.fields.select {|k,v| @rails.controller.index_fields.include?(k) }.keys.each do |field_name| %>
+            td = <%= @rails.resource.name %>.<%= field_name -%>
+          <% end %>
+            td = link_to t('scaffold.index.show'), <%= @rails.path.resource %>
+            td = link_to t('scaffold.index.edit'), <%= @rails.path.edit_resource %>
+            td = link_to t('scaffold.index.destroy'), <%= @rails.path.resource %>, data: {:confirm => t('scaffold.confirm')}, :method => :delete
+    = paginate @<%= @rails.resource.collection_name %>
+
+  .col-sm-4.col-12
+    .card
+      .card-body
+        aside.actions
+          .btn-toolbar.mb-2.mb-md-0
+            btn-group.mr-2
+              = link_to t('scaffold.actions.new', model: <%= @rails.resource.class_name_with_modules %>.model_name.human.mb_chars.downcase), <%= @rails.path.new_resource %>, class: 'btn btn-outline-primary btn-sm', role: "button"
+
+    .card.mt-2
+      .card-body
+        aside.search
+          h5 = t('scaffold.index.search.header')
+
+          = simple_form_for <%= "@#{@rails.resource.collection_name}_search" %>, as: :<%= @rails.resource.collection_name %>_search, url: <%= @rails.path.collection %>, method: :get  do |form|
+            = form.error_notification
+            .form-inputs
+    <% @rails.resource.fields.select {|k,v| @rails.controller.search_fields.include?(k) }.each_pair do |field_name, field_type| %>
+    <% if field_type == 'belongs_to' -%>
+              = form.input :<%= field_name -%>_id
+    <% elsif ['date', 'datetime'].include?(field_type) -%>
+              = form.input :<%= field_name -%>, as: :date, html5: true
+    <% elsif field_type == 'boolean' -%>
+              = form.input :<%= field_name -%>, as: :boolean, input_html: {class: 'filled-in'}
+    <% else %>
+              = form.input :<%= field_name -%>
+    <% end -%>
+    <% end %>
+
+            .form-actions
+              = form.button :submit, t('scaffold.index.search.button'), class: 'btn-primary'
+              <!-- = link_to t('scaffold.index.search.reset'),  url_for(<%= @rails.path.collection %>), class: 'btn-outline-secondary' -->
+              = form.button :button, "Cancel", type: "reset", class: "btn-outline-secondary float-right"
+

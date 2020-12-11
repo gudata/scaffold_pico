@@ -1,0 +1,14 @@
+.d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pb-2.mb-3.border-bottom
+  h1 = t('scaffold.edit.title', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 1).mb_chars.downcase)
+
+  .btn-toolbar.mb-2.mb-md-0
+    .btn-group.mr-2
+      = link_to t('scaffold.actions.new', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 1).mb_chars.downcase), <%= @rails.path.new_resource %>, class: 'btn btn-sm btn-outline-secondary'
+    .btn-group
+      = link_to t('scaffold.show.actions.index', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 2).mb_chars.downcase), <%= @rails.path.collection %>, class: "btn btn-sm btn-outline-secondary"
+
+
+= simple_form_for <%= @rails.path.instance_resource %> do |form|
+  = render 'form', form: form
+  .form-actions
+    = form.button :button, t('scaffold.actions.update', model: <%= @rails.resource.class_name_with_modules %>.model_name.human(count: 1)), :class => 'btn btn-primary'

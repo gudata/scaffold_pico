@@ -54,6 +54,11 @@ module Scaffold
           validate  /\A(?:::)?([A-Z]\w*(?:::[A-Z]\w*)*)\z/
         end
 
+        option :no_model, :required => true do
+          long '--no-model'
+          desc 'Do not generate file. It can help when you need to recreate the views on a model which already exists and have some code'
+        end
+
         option :includes do
           long '--includes=*INCLUDES'
           desc 'add .includes(*includes) into the collection request, we have join also'
@@ -102,10 +107,10 @@ module Scaffold
 
         option :css_framework do
           long '-c'
-          long '--css_framework materialize'
-          default 'materialize'
-          validate  /\A(zurb|materialize)\z/
-          desc 'zurb or materialize'
+          long '--css_framework zurb'
+          default 'twitter_bootstrap_4x'
+          validate  /\A(zurb|materialize|twitter_bootstrap_4x)\z/
+          desc 'zurb, materialize, twitter_bootstrap_4x'
         end
 
         option :services_folder do

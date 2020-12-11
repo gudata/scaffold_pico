@@ -1,15 +1,21 @@
 # Scaffolding done right
-No learning curve - replace Ruby on Rails scaffold, no DSLs or 3rd party gems.
+Soon or later the scaffold from which you start becomes your basic application. I have tried a lot of dynamic administration tooling and soon or later I land on the moment to work and invest time how to make my code work with the admin tool instead of develop my logic.
+
+I beleave that the appication is born and gets old. Starting with great foundation gives you a boost and then the application become mature without the pain.
+
+No learning curve - only what you already know - Ruby on Rails & scaffold
 
 * Support namespaces for the model and the controllers
 * You can generate scaffolds for nested resources
 * Can override every file per project
-* Supports different css frameworks - zurb / materializecss
+* Supports different css frameworks 
+   - twitter-boostrap-4.x
+   - materializecss 
+   - zurb
 * Generate fabricators
 * Define #index, #edit/new and search during the scafold creation
 * You can specify includes/joins for the #index action
-* Implement basic search
-
+* Implement basic search service
 
 # SYNOPSIS
 
@@ -30,7 +36,10 @@ No learning curve - replace Ruby on Rails scaffold, no DSLs or 3rd party gems.
 
 
 # Install
-The gem assume you have already in your Gemfile
+
+This project assumes that you use simple_form and kaminari, but if you have other preferences you can change them.
+
+You should already have in your Gemfile something like
 
     gem 'kaminari'
     gem 'slim-rails'
